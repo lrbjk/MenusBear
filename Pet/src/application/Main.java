@@ -15,16 +15,16 @@ public class Main extends Application {
 	private static ImageView imageView;
 	EventListener listen;
 	VBox messageBox;
-	int petID = 1;//³èÎïID¡£ÂÞÐ¡ºÚ=0£¬±È¶ª=1
+	int petID = 1;//ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½=0ï¿½ï¿½ï¿½È¶ï¿½=1
 	double xOffset = 0; 
 	double yOffset = 0;
 	
 	public void start(Stage primaryStage) {
 		try {
 			/*
-			 * ´´½¨³õÊ¼µÄÍ¼
-			 * ¼ÓÔØÏà¶ÔÂ·¾¶µÄÍ¼Æ¬ÒªÓÃclass.getResource£¬²»È»ÔËÐÐjar°üÊ±»á±¨´í£ºÕÒ²»µ½ÎÄ¼þÂ·¾¶£¡
-			 * Â·¾¶ÖÐµÚÒ»¸ö¡°/¡±ÊÇ±ØÐèµÄ£¬Ëü±íÊ¾ÀàµÄ¸ùÄ¿Â¼£¬ÀàÎÄ¼þ¼ÐÔÚ´ËÏîÄ¿ÖÐÓëlxhºÍbiuÔÚÍ¬Ò»¼¶
+			 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Í¼
+			 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Í¼Æ¬Òªï¿½ï¿½class.getResourceï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½jarï¿½ï¿½Ê±ï¿½á±¨ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½
+			 * Â·ï¿½ï¿½ï¿½Ðµï¿½Ò»ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ä¸ï¿½Ä¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½lxhï¿½ï¿½biuï¿½ï¿½Í¬Ò»ï¿½ï¿½
 			 */
 			Image image = new Image(this.getClass().getResourceAsStream("/biu/biu0.gif"));
 	      	imageView = new ImageView(image); 
@@ -32,23 +32,23 @@ public class Main extends Application {
 	      	imageView.setY(0);
 	      	imageView.setLayoutX(0);
 	      	imageView.setLayoutY(50);
-	      	//ÉèÖÃÍ¼Æ¬ÏÔÊ¾µÄ´óÐ¡
+	      	//ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½Ê¾ï¿½Ä´ï¿½Ð¡
 	      	imageView.setFitHeight(150); 
 	      	imageView.setFitWidth(150); 
-	      	//Ìí¼ÓÍ¼Æ¬µÄµã»÷ÊÂ¼þ
+	      	//ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½Äµï¿½ï¿½ï¿½Â¼ï¿??
 	      	listen = new EventListener(imageView , petID);
 	      	imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, listen);
 	      	
-	      	imageView.setPreserveRatio(true); //±£Áô width£ºheightµÄ±ÈÀý
-	      	imageView.setStyle("-fx-background:transparent;");//ÈÝÆ÷±³¾°ÉèÎªÍ¸Ã÷
+	      	imageView.setPreserveRatio(true); //ï¿½ï¿½ï¿½ï¿½ widthï¿½ï¿½heightï¿½Ä±ï¿½ï¿½ï¿½
+	      	imageView.setStyle("-fx-background:transparent;");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎªÍ¸ï¿½ï¿½
 	      	
 	      	UI ui = new UI(imageView, petID, listen,primaryStage);
-	      	ui.addMessageBox("ÄãºÃß¹~");
+	      	ui.addMessageBox("ï¿½ï¿½ï¿½ß¹~");
 	      	
 			AnchorPane pane = new AnchorPane(ui.getMessageBox(),ui.getImageView());
 			
 			pane.setStyle("-fx-background:transparent;");
-			//Ê¹´°ÌåÄÜÍÏ¶¯¡£ÏÈ»ñÈ¡°´ÏÂÊó±êÊ±µÄ×ø±êp1£¬ÔÙ½«´°Ìå×ø±êÉèÎªp1¼ÓÍÏ¶¯µÄÎ»ÒÆÁ¿
+			//Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½È»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½p1ï¿½ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªp1ï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½
 			pane.setOnMousePressed(event -> {
 			    xOffset = event.getSceneX();
 			    yOffset = event.getSceneY();
@@ -63,24 +63,24 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			primaryStage.setScene(scene);
-			//ÉèÖÃ´°ÌåµÄ³õÊ¼Î»ÖÃ
+			//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ä³ï¿½Ê¼Î»ï¿½ï¿??
 			primaryStage.setX(850);
 			primaryStage.setY(400);
-			primaryStage.setAlwaysOnTop(true);//´°¿Ú×ÜÏÔÊ¾ÔÚ×îÇ°
-			//ÐÞ¸ÄÈÎÎñÀ¸Í¼±ê
+			primaryStage.setAlwaysOnTop(true);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½Ç°
+			//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
-			//ÏÂ¾äÒþ²ØÈÎÎñÀ¸Í¼±ê£¬µ«javafxµÄstage.initStyle(Style)Ö»ÄÜÓÐÒ»¸öÆðÐ§£¬Ö»ºÃ×÷°Õ
+			//ï¿½Â¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ê£¬ï¿½ï¿½javafxï¿½ï¿½stage.initStyle(Style)Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //			stage.initStyle(StageStyle.UTILITY);
-			primaryStage.initStyle(StageStyle.TRANSPARENT);//±³¾°Í¸Ã÷
+			primaryStage.initStyle(StageStyle.TRANSPARENT);//ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ï¿½
 			/*
-			 * µã»÷ÈÎÎñÀ¸µÄ¡°¹Ø±Õ´°¿Ú¡±Ê±£¬²¥·Å¸æ±ð¶¯»­£¬Í¬Ê±Ê¹ÍÐÅÌµÄÍ¼±êÒ²¹Ø±Õ.
-			 * event.consume()ÊÇ±ØÐèµÄ£¬ÕâÑù²ÅÄÜÕæÕý×èÖ¹Window CloseÊÂ¼þµÄÄ¬ÈÏ´¦Àí¡£
-			 * Èç¹û½ö½öÊ¹ÓÃSystem.exit(0);Ôò²»ÐèÒªevent.consume();
+			 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½Ø±Õ´ï¿½ï¿½Ú¡ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ð¶¯»ï¿½ï¿½ï¿½Í¬Ê±Ê¹ï¿½ï¿½ï¿½Ìµï¿½Í¼ï¿½ï¿½Ò²ï¿½Ø±ï¿½.
+			 * event.consume()ï¿½Ç±ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹Window Closeï¿½Â¼ï¿½ï¿½ï¿½Ä¬ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
+			 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½System.exit(0);ï¿½ï¿½ï¿½ï¿½Òªevent.consume();
 			*/
 			primaryStage.setOnCloseRequest( event ->{event.consume(); ui.end();});
 			primaryStage.show();
 			
-			ui.setTray(primaryStage);//Ìí¼ÓÏµÍ³ÍÐÅÌ
+			ui.setTray(primaryStage);//ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½
 			Thread thread = new Thread(ui);
 			thread.start();
 		} catch(Exception e) {

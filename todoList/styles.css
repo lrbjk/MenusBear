@@ -1,0 +1,98 @@
+/* 设置全局字体 */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 更现代的字体 */
+    -fx-font-size: 14px;
+}
+
+/* 窗口背景 */
+.root {
+    -fx-background-color: #eaeaea; /* 更明亮的背景 */
+}
+
+/* 输入框样式 */
+.text-area {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-focus-color: #5b9bd5; /* 聚焦时边框颜色 */
+}
+
+/* 输入框聚焦效果 */
+.text-area:focused {
+    -fx-border-color: #5b9bd5; /* 聚焦时边框颜色 */
+}
+
+/* 按钮样式 */
+.button {
+    -fx-background-color: #007bff; /* 主色调：蓝色 */
+    -fx-text-fill: white;
+    -fx-padding: 7px 10px;
+    -fx-font-size: 10px;
+    -fx-border-radius: 3px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 1, 1);
+    -fx-cursor: hand; /* 鼠标悬停变成手指 */
+    -fx-transition: background-color 0.3s; /* 添加过渡效果 */
+}
+
+.button:hover {
+    -fx-background-color: #0056b3; /* 鼠标悬停颜色 */
+}
+
+/* 复选框样式 */
+.check-box {
+    -fx-text-fill: #333;
+}
+
+/* 列表视图样式 */
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+
+/* 自定义任务单元格 */
+.list-cell {
+    -fx-padding: 10px;
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-cursor: hand; /* 鼠标悬停变成手指 */
+}
+
+.list-cell:hover {
+    -fx-background-color: #f0f8ff; /* 悬停时背景颜色 */
+}
+
+/* 选择列表时高亮 */
+.list-cell:selected {
+    -fx-background-color: #cce5ff; /* 选中时背景颜色 */
+}
+
+/* 警告对话框样式 */
+.alert {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* 增加间距 */
+.vbox {
+    -fx-spacing: 10px; /* 垂直布局间距 */
+}
+
+.hbox {
+    -fx-spacing: 10px; /* 水平布局间距 */
+}
+.task-label {
+    -fx-background-color: #ffffff;
+    -fx-padding: 10px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 1, 1);
+}
+
+.task-label:hover {
+    -fx-background-color: #f0f8ff; /* 悬停时背景颜色 */
+}

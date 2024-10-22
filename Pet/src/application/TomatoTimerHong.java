@@ -1,18 +1,22 @@
+package application;
 import javax.swing.*;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+// import javafx.application.Application;
+// import javafx.scene.Scene;
+// import javafx.scene.layout.Background;
+// import javafx.scene.layout.BackgroundImage;
+// import javafx.scene.layout.BackgroundPosition;
+// import javafx.scene.layout.BackgroundRepeat;
+// import javafx.scene.layout.BackgroundSize;
+// import javafx.scene.layout.BorderPane;
+// import javafx.scene.layout.StackPane;
+// import javafx.stage.Stage;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Scanner;
 
 public class TomatoTimerHong{
     JFrame window1;
@@ -27,16 +31,23 @@ public class TomatoTimerHong{
     JButton resetButton;
     JButton setButton;
     JPanel imPanel;
+    Boolean isCN = true;
+    
+    int recMinutes;
     int minutes; // 创建一个整型变量，用于存储分钟数
     int seconds; // 创建一个整型变量，用于存储秒数
     Timer timer;// 创建一个Timer对象，用于计时
 
-    public TomatoTimerHong(){
+    public TomatoTimerHong(boolean tempIsCN, int timeSet){
         //创建窗口
-		window1 = new JFrame("番茄时钟");
+        String title = "番茄时钟";
+        isCN = tempIsCN;
+        recMinutes = timeSet;
+        if(!tempIsCN)   title = "Tomato Timer";
+        window1 = new JFrame(title);
 
         //初始化
-        minutes = 25; // 初始化分钟数为25
+        minutes = timeSet; // 初始化分钟数为25
         seconds = 0; // 初始化秒数为0
         // timer = new Timer(1000, new TimerListener()); // 创建一个间隔为1000ms的Timer对象，并为其添加ActionListener
 
@@ -64,15 +75,23 @@ public class TomatoTimerHong{
         forText.setBackground(new Color(255,255,255,0));
 
         //文字
-        label = new JLabel("25:00", SwingConstants.CENTER); // 创建一个初始值为“25:00”的JLabel对象
+        label = new JLabel(minutes+":00", SwingConstants.CENTER); // 创建一个初始值为“25:00”的JLabel对象
         label.setFont(new Font("Times New Roman", Font.BOLD, 100));
         label.setForeground(Color.white);
 
         //按钮们
-        startButton = new JButton("开始");
-        stopButton = new JButton("暂停");
-        resetButton = new JButton("重置");
-        setButton = new JButton("设置时间");
+        String a = "开始";
+        if(!tempIsCN)   a = "Begin";
+        startButton = new JButton(a);
+        a = "暂停";
+        if(!tempIsCN)   a = "Pause";
+        stopButton = new JButton(a);
+        a = "重置";
+        if(!tempIsCN)   a = "Reset";
+        resetButton = new JButton(a);
+        a = "设置时间";
+        if(!tempIsCN)   a = "Options";
+        setButton = new JButton(a);
 
         startButton.setBorderPainted(false); //设为边界透明
         stopButton.setBorderPainted(false); //设为边界透明
@@ -131,9 +150,17 @@ public class TomatoTimerHong{
         window1.setVisible(true); // 将窗口设置为可见
     }
 
-    public static void main(String[] args) {
-		TomatoTimerHong tomatoTimerHong = new TomatoTimerHong();
-		tomatoTimerHong.start();
+    public static void main(String[] args) throws FileNotFoundException {
+        String fileName = "TomatoConfig.txt";
+        try (Scanner sc = new Scanner(new FileReader(fileName))){
+            Boolean tempIsCN = false;
+            if(sc.nextLine().equals("CN")){
+                tempIsCN = true;
+            }
+            int timeSet = Integer.parseInt(sc.nextLine());
+            TomatoTimerHong tomatoTimerHong = new TomatoTimerHong(tempIsCN, timeSet);
+		    tomatoTimerHong.start();
+        }
 	}
 
     private class StartButtonListener implements ActionListener { // 开始按钮的ActionListener
@@ -151,7 +178,7 @@ public class TomatoTimerHong{
     private class ResetButtonListener implements ActionListener { // 重置按钮的ActionListener
         public void actionPerformed(ActionEvent e) {
             timer.stop(); // 停止计时器
-            minutes = 25; // 将分钟数重置为25
+            minutes = recMinutes; // 将分钟数重置为25
             seconds = 0; // 将秒数重置为0
             label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
         }
@@ -159,18 +186,25 @@ public class TomatoTimerHong{
 
     private class SetTimeButtonListener implements ActionListener { // 设置时间按钮的ActionListener
         public void actionPerformed(ActionEvent e) {
-            String input = JOptionPane.showInputDialog(window1, "Enter time in minutes (max 60):"); // 弹出一个对话框，提示用户输入分钟数
+            String str = "Enter time in minutes (max 60):";
+            if(isCN)    str = "请输入时间（不超过60分钟）";
+            String input = JOptionPane.showInputDialog(window1, str); // 弹出一个对话框，提示用户输入分钟数
             try {
                 int newMinutes = Integer.parseInt(input); // 将用户输入的字符串转换为整型
                 if (newMinutes > 0 && newMinutes <= 60) { // 如果输入的分钟数在1到60之间
                     minutes = newMinutes; // 更新分钟数
+                    recMinutes = newMinutes;
                     seconds = 0; // 将秒数重置为0
                     label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
                 } else { // 如果输入的分钟数不在1到60之间
-                    JOptionPane.showMessageDialog(window1, "无效输入，请输入1-60之间的数字"); // 弹出一个对话框，提示用户输入1到60之间的数字
+                    str = "Invalid input. Please enter an integer between 1 and 60.";
+                    if(isCN)    str = "无效输入，请输入1-60之间的数字";
+                    JOptionPane.showMessageDialog(window1, str); // 弹出一个对话框，提示用户输入1到60之间的数字
                 }
             } catch (NumberFormatException ex) { // 如果用户输入的不是数字
-                JOptionPane.showMessageDialog(window1, "无效输入，请输入1-60之间的数字"); // 弹出一个对话框，提示用户输入1到60之间的数字
+                str = "Invalid input. Please enter an integer between 1 and 60.";
+                    if(isCN)    str = "无效输入，请输入1-60之间的数字";
+                JOptionPane.showMessageDialog(window1, str); // 弹出一个对话框，提示用户输入1到60之间的数字
             }
         }
     }
@@ -179,7 +213,9 @@ public class TomatoTimerHong{
         public void actionPerformed(ActionEvent e) {
             if (minutes == 0 && seconds == 0) { // 如果时间到了
                 timer.stop(); // 停止计时器
-                JOptionPane.showMessageDialog(window1, "时间到!"); // 弹出一个对话框，提示用户时间到了
+                String str = "Times Up!";
+                if(isCN)    str = "时间到！";
+                JOptionPane.showMessageDialog(window1, str); // 弹出一个对话框，提示用户时间到了
             } else if (seconds == 0) { // 如果秒数为0
                 minutes--; // 分钟数减1
                 seconds = 59; // 秒数重置为59

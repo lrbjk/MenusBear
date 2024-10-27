@@ -1,6 +1,8 @@
 package application;
 import javax.swing.*;
 
+import javafx.scene.layout.Border;
+
 // import javafx.application.Application;
 // import javafx.scene.Scene;
 // import javafx.scene.layout.Background;
@@ -30,8 +32,17 @@ public class TomatoTimerHong{
     JButton stopButton;
     JButton resetButton;
     JButton setButton;
+
+    JButton aa;
+    JButton b;
+    JButton c;
+    JButton d;
+    JButton ee;
+    JPanel newButton;
     JPanel imPanel;
     Boolean isCN = true;
+
+    static String fileName = "TomatoConfig.txt";
     
     int recMinutes;
     int minutes; // 创建一个整型变量，用于存储分钟数
@@ -45,6 +56,8 @@ public class TomatoTimerHong{
         recMinutes = timeSet;
         if(!tempIsCN)   title = "Tomato Timer";
         window1 = new JFrame(title);
+
+        // window1.getStylesheets().add(getClass());
 
         //初始化
         minutes = timeSet; // 初始化分钟数为25
@@ -61,37 +74,332 @@ public class TomatoTimerHong{
 
         //背景层内容
         backgroundLabel = new JLabel(icon);
-        backgroundLabel.setBounds(0,0,400,200);
-        // icon.setImage(icon.getImage().getScaledInstance(400, 300, Image.SCALE_DEFAULT));
-        // forImage.setBounds(0,0);
+        backgroundLabel.setBounds(0,0,600,400);
+
         window1.getLayeredPane().add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));
         window1.setResizable(false);
 
         //一个用来放按钮的Panel
         forContent = new JPanel(new GridLayout(1, 4));
+        forContent.setPreferredSize(new Dimension(600, 80));
         //一个用来放文字的Panel
         forText = new JPanel();
         forText.setOpaque(false);
-        forText.setBackground(new Color(255,255,255,0));
 
         //文字
         label = new JLabel(minutes+":00", SwingConstants.CENTER); // 创建一个初始值为“25:00”的JLabel对象
-        label.setFont(new Font("Times New Roman", Font.BOLD, 100));
-        label.setForeground(Color.white);
+        label.setFont(new Font("Times New Roman", Font.BOLD, 200));
+        label.setForeground(new Color(41,33,16));
+        // label.setForeground(Color.white);
+
+        newButton = new JPanel();
+        aa = new JButton("<html>05<br>00</html>");
+        aa.setFont(new Font("SimHei", Font.BOLD, 15));
+        newButton.add(aa);
+        newButton.setOpaque(false);
+        aa.setBorderPainted(false);
+
+        b = new JButton("<html>10<br>00</html>");
+        b.setFont(new Font("SimHei", Font.BOLD, 15));
+        newButton.add(b);
+        b.setBorderPainted(false);
+
+        c = new JButton("<html>15<br>00</html>");
+        c.setFont(new Font("SimHei", Font.BOLD, 15));
+        newButton.add(c);
+        c.setBorderPainted(false);
+
+        d = new JButton("<html>20<br>00</html>");
+        d.setFont(new Font("SimHei", Font.BOLD, 15));
+        newButton.add(d);
+        d.setBorderPainted(false);
+
+        ee = new JButton("<html>45<br>00</html>");
+        ee.setFont(new Font("SimHei", Font.BOLD, 15));
+        newButton.add(ee);
+        ee.setBorderPainted(false);
+
+        Color saveForA = new Color(248,169,0);
+        Color saveForD = new Color(224,157,65);
+        aa.setBackground(saveForA);
+        aa.setFocusPainted(false);
+        b.setBackground(saveForA);
+        b.setFocusPainted(false);
+        c.setBackground(saveForA);
+        c.setFocusPainted(false);
+        d.setBackground(saveForA);
+        d.setFocusPainted(false);
+        ee.setBackground(saveForA);
+        ee.setFocusPainted(false);
+
+        aa.setPreferredSize(new Dimension(50,50));
+        b.setPreferredSize(new Dimension(50,50));
+        c.setPreferredSize(new Dimension(50,50));
+        d.setPreferredSize(new Dimension(50,50));
+        ee.setPreferredSize(new Dimension(50,50));
+
+        aa.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                aa.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                aa.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                aa.setBackground(saveForA.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                aa.setBackground(saveForA.darker());
+            }
+        });
+        
+        b.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                b.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                b.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                b.setBackground(saveForA.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                b.setBackground(saveForA.darker());
+            }
+        });
+        
+        c.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                c.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                c.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                c.setBackground(saveForA.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                c.setBackground(saveForA.darker());
+            }
+        });
+
+        d.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                d.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                d.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                d.setBackground(saveForA.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                d.setBackground(saveForA.darker());
+            }
+        });
+
+        ee.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                ee.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                ee.setBackground(saveForA);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                ee.setBackground(saveForA.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ee.setBackground(saveForA.darker());
+            }
+        });
 
         //按钮们
         String a = "开始";
         if(!tempIsCN)   a = "Begin";
         startButton = new JButton(a);
+        startButton.setFont(new Font("SimHei", Font.BOLD, 40));
+        startButton.setFocusPainted(false);
+        startButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                startButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Not working :(
+                    startButton.setBackground(Color.pink);
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                startButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                startButton.setBackground(saveForD.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                startButton.setBackground(saveForD.darker());
+            }
+        });
+
         a = "暂停";
         if(!tempIsCN)   a = "Pause";
         stopButton = new JButton(a);
+        stopButton.setFont(new Font("SimHei", Font.BOLD, 40));
+        stopButton.setFocusPainted(false);
+        stopButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                stopButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Not working :(
+                    stopButton.setBackground(Color.pink);
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                stopButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                stopButton.setBackground(saveForD.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                stopButton.setBackground(saveForD.darker());
+            }
+        });
+
         a = "重置";
         if(!tempIsCN)   a = "Reset";
         resetButton = new JButton(a);
-        a = "设置时间";
+        resetButton.setFont(new Font("SimHei", Font.BOLD, 40));
+        resetButton.setFocusPainted(false);
+        resetButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                resetButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Not working :(
+                    resetButton.setBackground(Color.pink);
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                resetButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                resetButton.setBackground(saveForD.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                resetButton.setBackground(saveForD.darker());
+            }
+        });
+
+        a = "设置";
         if(!tempIsCN)   a = "Options";
         setButton = new JButton(a);
+        setButton.setFont(new Font("SimHei", Font.BOLD, 40));
+        setButton.setFocusPainted(false);
+        setButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                setButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mousePressed(MouseEvent e) {
+                // Not working :(
+                    setButton.setBackground(Color.pink);
+            }
+        
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setButton.setBackground(saveForD);
+            }
+        
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setButton.setBackground(saveForD.darker());
+            }
+        
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setButton.setBackground(saveForD.darker());
+            }
+        });
 
         startButton.setBorderPainted(false); //设为边界透明
         stopButton.setBorderPainted(false); //设为边界透明
@@ -100,10 +408,16 @@ public class TomatoTimerHong{
 
         // startButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
-        startButton.setBackground(Color.white);
-        stopButton.setBackground(Color.white);
-        resetButton.setBackground(Color.white);
-        setButton.setBackground(Color.white);
+        startButton.setBackground(saveForD);
+        stopButton.setBackground(saveForD);
+        resetButton.setBackground(saveForD);
+        setButton.setBackground(saveForD);
+
+        aa.addActionListener(new aListener());
+        b.addActionListener(new bListener());
+        c.addActionListener(new cListener());
+        d.addActionListener(new dListener());
+        ee.addActionListener(new eListener());
 
         startButton.addActionListener(new StartButtonListener()); // 为startButton添加ActionListener
         stopButton.addActionListener(new StopButtonListener()); // 为stopButton添加ActionListener
@@ -120,16 +434,26 @@ public class TomatoTimerHong{
         forContent.add(setButton);
 
         //修改非背景Panel的透明度（好像没用）
-        // window1.getContentPane().setOpaque(false);
         imPanel = (JPanel)window1.getContentPane();
         imPanel.setOpaque(false);
         forContent.setOpaque(false);
         forText.setOpaque(false);
 
         //把Panel添加到Frame上
-        window1.add(forImage, BorderLayout.CENTER);
-        window1.add(forContent, BorderLayout.SOUTH);
-        window1.add(forText, BorderLayout.CENTER);
+        // window1.setLayout(new BorderLayout(0, 15));
+        window1.getContentPane().setLayout(null);
+
+        window1.add(forImage);
+
+        forContent.setBounds(-10,280,600,80);
+        window1.add(forContent);
+
+        newButton.setBounds(-5,220,600,80);
+        window1.add(newButton, BorderLayout.NORTH);
+
+        forText.setBounds(-5,0,600,250);
+        window1.add(forText);
+
         
 
         //LayeredPane安排叠加顺序
@@ -140,9 +464,10 @@ public class TomatoTimerHong{
         // window1.add(layeredPane);
 
         //距离屏幕左边100个像素，上边100个像素，窗口的宽是300，高是300
-		window1.setBounds(100,100,400,200);    //设置窗口1在屏幕上的位置及大小
+		window1.setBounds(100,100,600,400);    //设置窗口1在屏幕上的位置及大小
 
 		window1.setVisible(true);    //设置窗口可见
+        // window1.getContentPane().setBackground(Color.red);
 		window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);    //释放当前窗口
     }
 
@@ -151,7 +476,7 @@ public class TomatoTimerHong{
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        String fileName = "TomatoConfig.txt";
+        
         try (Scanner sc = new Scanner(new FileReader(fileName))){
             Boolean tempIsCN = false;
             if(sc.nextLine().equals("CN")){
@@ -166,6 +491,56 @@ public class TomatoTimerHong{
     private class StartButtonListener implements ActionListener { // 开始按钮的ActionListener
         public void actionPerformed(ActionEvent e) {
             timer.start(); // 启动计时器
+        }
+    }
+
+    private class aListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            minutes = 5; // 更新分钟数
+            recMinutes = 5;
+            seconds = 0; // 将秒数重置为0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
+            timer.stop();
+        }
+    }
+
+    private class bListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            minutes = 10; // 更新分钟数
+            recMinutes = 10;
+            seconds = 0; // 将秒数重置为0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
+            timer.stop();
+        }
+    }
+
+    private class cListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            minutes = 15; // 更新分钟数
+            recMinutes = 15;
+            seconds = 0; // 将秒数重置为0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
+            timer.stop();
+        }
+    }
+
+    private class dListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            minutes = 20; // 更新分钟数
+            recMinutes = 20;
+            seconds = 0; // 将秒数重置为0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
+            timer.stop();
+        }
+    }
+
+    private class eListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            minutes = 45; // 更新分钟数
+            recMinutes = 45;
+            seconds = 0; // 将秒数重置为0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
+            timer.stop();
         }
     }
 

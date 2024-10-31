@@ -1,8 +1,6 @@
 package application;
 import javax.swing.*;
 
-import javafx.scene.layout.Border;
-
 // import javafx.application.Application;
 // import javafx.scene.Scene;
 // import javafx.scene.layout.Background;
@@ -32,6 +30,13 @@ public class TomatoTimerHong{
     JButton stopButton;
     JButton resetButton;
     JButton setButton;
+
+    JPanel forUI;
+    JButton mini;
+    JButton quit;
+
+    int mouseAtX;
+    int mouseAtY;
 
     JButton aa;
     JButton b;
@@ -66,6 +71,40 @@ public class TomatoTimerHong{
 
         //一个用来放背景图片的Panel
         forImage = new JPanel();
+
+        forUI = new JPanel();
+        if(tempIsCN){
+            mini = new JButton("最小化");
+            quit = new JButton("关闭");
+        }else{
+            mini = new JButton("Minimize");
+            quit = new JButton("Quit");
+        }
+        
+        forUI.setLayout(null);
+
+        forUI.setOpaque(false);
+        forUI.add(mini);
+        forUI.add(quit);
+
+        mini.setBackground(new Color(122,80,23));
+        mini.setBorderPainted(false);
+        mini.setFocusPainted(false);
+        mini.setBounds(0,0,100,40);
+
+        quit.setBackground(new Color(122,80,23));
+        quit.setBorderPainted(false);
+        quit.setFocusPainted(false);
+        quit.setBounds(500,0,100,40);
+
+        mini.addActionListener(new ap());
+        quit.addActionListener(new ap());
+
+        mini.setForeground(Color.white);
+        mini.setFont(new Font("SimHei", Font.BOLD, 20));
+        quit.setForeground(Color.white);
+        quit.setFont(new Font("SimHei", Font.BOLD, 20));
+
 
         //加载图片
         // Image image = new ImageIcon("testBackground.jpg").getImage();
@@ -445,13 +484,18 @@ public class TomatoTimerHong{
 
         window1.add(forImage);
 
-        forContent.setBounds(-10,280,600,80);
+        forContent.setBounds(0,320,600,80);
         window1.add(forContent);
 
-        newButton.setBounds(-5,220,600,80);
+
+        forUI.setBounds(0,0,600,80);
+        // forUI
+        window1.add(forUI);
+
+        newButton.setBounds(0,250,600,80);
         window1.add(newButton, BorderLayout.NORTH);
 
-        forText.setBounds(-5,0,600,250);
+        forText.setBounds(0,25,600,250);
         window1.add(forText);
 
         
@@ -465,6 +509,29 @@ public class TomatoTimerHong{
 
         //距离屏幕左边100个像素，上边100个像素，窗口的宽是300，高是300
 		window1.setBounds(100,100,600,400);    //设置窗口1在屏幕上的位置及大小
+
+        window1.setUndecorated(true);
+
+        window1.addMouseListener(new MouseAdapter() 
+        {
+            public void mousePressed(MouseEvent e) 
+            {
+                /*
+                 * 获取点击鼠标时的坐标
+                 */
+                mouseAtX = e.getPoint().x;
+                mouseAtY = e.getPoint().y;
+            }
+         });      
+        
+        window1.addMouseMotionListener(new MouseMotionAdapter()
+          {
+              public void mouseDragged(MouseEvent e) 
+              {
+                  window1.setLocation((e.getXOnScreen()-mouseAtX),(e.getYOnScreen()-mouseAtY));//设置拖拽后，窗口的位置
+              }
+          });
+
 
 		window1.setVisible(true);    //设置窗口可见
         // window1.getContentPane().setBackground(Color.red);
@@ -600,5 +667,17 @@ public class TomatoTimerHong{
             label.setText(String.format("%02d:%02d", minutes, seconds)); // 更新label的文本
         }
     }
+
+    private class ap implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            if(e.getActionCommand() == "最小化"){
+                window1.setExtendedState(window1.ICONIFIED);
+            }else if(e.getActionCommand() == "关闭"){
+                System.exit(0);
+            }
+        }
+    }
+
+    
  } 
  

@@ -32,3 +32,11 @@ public class NewButton extends JButton
        g.drawRoundRect(0,0,getSize().width-1,getSize().height-1,15,15);
     }
 }
+
+
+
+
+/*
+ * 昊：新的类（管理事件），可以通过菜单的按钮打开对应程序
+ * 黎乐：美术需求表
+ */

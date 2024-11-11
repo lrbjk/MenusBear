@@ -10,47 +10,47 @@ import javafx.util.Duration;
 
 public class EventListener implements EventHandler<MouseEvent> {
 	private ImageView imageView;
-	int gifID = 0;//Í¼Æ¬±àºÅ
-	int petID = 0;//³èÎïID
-	double time = 3;//²¥·Å¶¯»­µÄÊ±¼ä
+	int gifID = 0;//å›¾ç‰‡ç¼–å·
+	int petID = 0;//å® ç‰©ID
+	double time = 3;//æ’­æ”¾åŠ¨ç”»çš„æ—¶é—´
 	public EventListener(ImageView imgView, int pet) {
 		imageView=imgView;
 		petID = pet;
 	}
 	public void handle(MouseEvent e) {
-		if(gifID!=0) return;	//Èç¹û¶¯×÷Ã»×öÍê£¬¾Í²»ÔÊĞíÔÙ×öĞÂµÄ¶¯×÷
+		if(gifID!=0) return;	//å¦‚æœåŠ¨ä½œæ²¡åšå®Œï¼Œå°±ä¸å…è®¸å†åšæ–°çš„åŠ¨ä½œ
 		double x = e.getX();
 		double y = e.getY();
-//		System.out.println(x+" "+y);//²âÊÔÑÛ¾¦µÈ²¿Î»µÄÎ»ÖÃ
-		//Ñ¡Ôñ¶¯×÷
+//		System.out.println(x+" "+y);//æµ‹è¯•çœ¼ç›ç­‰éƒ¨ä½çš„ä½ç½®
+		//é€‰æ‹©åŠ¨ä½œ
 		if(petID == 0) lxhBehavior(x,y);
 		else biuBehavior(x,y);
-		loadImg(petID,gifID,time);//ÏÔÊ¾Í¼Æ¬
+		loadImg(petID,gifID,time);//æ˜¾ç¤ºå›¾ç‰‡
 	}
-	//ÂŞĞ¡ºÚµÄ¶¯×÷
+	//ç½—å°é»‘çš„åŠ¨ä½œ
 	public void lxhBehavior(double x,double y) {
-		//ÒÔÏÂµÄ¡°×ó¡±¡°ÓÒ¡±¶¼ÊÇÏà¶ÔÓÚÓÃ»§À´ËµµÄ
-		//µã»÷×óÑÛ
+		//ä»¥ä¸‹çš„â€œå·¦â€â€œå³â€éƒ½æ˜¯ç›¸å¯¹äºç”¨æˆ·æ¥è¯´çš„
+		//ç‚¹å‡»å·¦çœ¼
 		if(x>20 & x<42 & y>125 & y<143) {
 			gifID = 1;
 			time = 2.8;
 		}
-		//µã»÷ÓÒÑÛ
+		//ç‚¹å‡»å³çœ¼
 		else if(x>63 & x<90 & y>125 & y<143) {
 			gifID = 2;
 			time = 3.85;
 		}
-		//µã»÷ÓÒ¶ú
+		//ç‚¹å‡»å³è€³
 		else if(x>93 & x<110 & y>80 & y<100) {
 			gifID = 3;
 			time = 6.3;
 		}
-		//µã»÷ÉíÌå
+		//ç‚¹å‡»èº«ä½“
 		else if(x>110 & x<130 & y>125 & y<155) {
 			gifID = 4;
 			time = 3;
 		}
-		//µã»÷Ğ¡Ğ¡ºÚ
+		//ç‚¹å‡»å°å°é»‘
 		else if(x>152 & x<175 & y>157 & y<172) {
 			gifID = 5;
 			time = 3.5;
@@ -59,40 +59,40 @@ public class EventListener implements EventHandler<MouseEvent> {
 			gifID = 0;
 		}
 	}
-	//±È¶ªµÄ¶¯×÷
+	//æ¯”ä¸¢çš„åŠ¨ä½œ
 	private void biuBehavior(double x, double y) {
-		//ÒÔÏÂµÄ¡°×ó¡±¡°ÓÒ¡±¶¼ÊÇÏà¶ÔÓÚÓÃ»§À´ËµµÄ
-		//µã»÷×óÑÛ
+		//ä»¥ä¸‹çš„â€œå·¦â€â€œå³â€éƒ½æ˜¯ç›¸å¯¹äºç”¨æˆ·æ¥è¯´çš„
+		//ç‚¹å‡»å·¦çœ¼
 		if(x>40 & x<51 & y>60 & y<67) {
 			gifID = 1;
 			time = 3.7;
 		}
-		//µã»÷ÓÒÑÛ
+		//ç‚¹å‡»å³çœ¼
 		else if(x>87 & x<100 & y>58 & y<69) {
 			gifID = 2;
 			time = 4.45;
 		}
-		//µã»÷×ì
+		//ç‚¹å‡»å˜´
 		else if(x>62 & x<76 & y>61 & y<69) {
 			gifID = 3;
 			time = 5.3;
 		}
-		//µã»÷×óÊÖ
+		//ç‚¹å‡»å·¦æ‰‹
 		else if(x>31 & x<49 & y>87 & y<117) {
 			gifID = 4;
 			time = 1.75;
 		}
-		//µã»÷ÓÒÊÖ
+		//ç‚¹å‡»å³æ‰‹
 		else if(x>86 & x<107 & y>85 & y<114) {
 			gifID = 5;
 			time = 4;
 		}
-		//µã»÷¶îÍ·
+		//ç‚¹å‡»é¢å¤´
 		else if(x>43 & x<94 & y>34 & y<52) {
 			gifID = 6;
 			time = 1.8;
 		}
-		//µã»÷¶Ç×Ó
+		//ç‚¹å‡»è‚šå­
 		else if(x>64 & x<79 & y>86 & y<130) {
 			gifID = 7;
 			time = 4.1;
@@ -101,31 +101,31 @@ public class EventListener implements EventHandler<MouseEvent> {
 			gifID = 0;
 		}
 	}
-	//µã»÷²¿Î»ºó¼ÓÔØÍ¼Æ¬
+	//ç‚¹å‡»éƒ¨ä½ååŠ è½½å›¾ç‰‡
 	public void loadImg(int petID,int gifID, double time) {
 		this.gifID = gifID;
 		if(gifID!=0) {
 			Image newimage;
 		if(petID==0)
-			newimage = new Image(this.getClass().getResourceAsStream("/lxh/ÂŞĞ¡ºÚ"+gifID+".gif"));
+			newimage = new Image(this.getClass().getResourceAsStream("/lxh/ç½—å°é»‘"+gifID+".gif"));
 		else 
 			newimage = new Image(this.getClass().getResourceAsStream("/biu/biu"+gifID+".gif"));
 		
 		imageView.setImage(newimage);
-		//ÖĞ¶Ï¶¯Í¼µÄ²¥·Å£¬ÇĞ»»ÖÁÖ÷Í¼
+		//ä¸­æ–­åŠ¨å›¾çš„æ’­æ”¾ï¼Œåˆ‡æ¢è‡³ä¸»å›¾
 		new Timeline(new KeyFrame(Duration.seconds(time), ae ->mainimg(this.petID,0))).play();
 		}
     }
-	//Ö÷Í¼£¬¸ºÔğµÈ´ıÊ±ºÍÍË³öÊ±µÄ¶¯×÷
+	//ä¸»å›¾ï¼Œè´Ÿè´£ç­‰å¾…æ—¶å’Œé€€å‡ºæ—¶çš„åŠ¨ä½œ
 	public void mainimg(int pet,int key) {
 		Image newimage;
 		if(pet==0)
-			newimage = new Image(this.getClass().getResourceAsStream("/lxh/ÂŞĞ¡ºÚ"+key+".gif"));
+			newimage = new Image(this.getClass().getResourceAsStream("/lxh/ç½—å°é»‘"+key+".gif"));
 		else
 			newimage = new Image(this.getClass().getResourceAsStream("/biu/biu"+key+".gif"));
 		imageView.setImage(newimage);
-		//ÕâÀïÊÇÎªÁË±£Ö¤ÄÜ×ö³öĞÂµÄ¶¯×÷£¬¶ÔÓ¦ÓÚhandle·½·¨µÄif(gifID!=0) return;
-		//Í¬Ê±Ò²ÊÇÎªÁË×öÆäËû¶¯×÷Ê±²»±»¡°×ÔĞĞ×ß¶¯¡±ºÍ¡°×ÔÓé×ÔÀÖ¡±´ò¶Ï
+		//è¿™é‡Œæ˜¯ä¸ºäº†ä¿è¯èƒ½åšå‡ºæ–°çš„åŠ¨ä½œï¼Œå¯¹åº”äºhandleæ–¹æ³•çš„if(gifID!=0) return;
+		//åŒæ—¶ä¹Ÿæ˜¯ä¸ºäº†åšå…¶ä»–åŠ¨ä½œæ—¶ä¸è¢«â€œè‡ªè¡Œèµ°åŠ¨â€å’Œâ€œè‡ªå¨±è‡ªä¹â€æ‰“æ–­
 		if(key == 0) gifID=0;
     }
 	

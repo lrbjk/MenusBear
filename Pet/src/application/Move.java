@@ -25,19 +25,19 @@ public class Move extends Thread{
        direID = dire;
        stage = primaryStage;
        listen = el;
-       petID = listen.petID;//´ËpetIDÊÇµ÷ÓÃMoveÊ±µÄpetID
+       petID = listen.petID;//æ­¤petIDæ˜¯è°ƒç”¨Moveæ—¶çš„petID
     }
     
     public void run() {
-       //µã»÷¾ÍÍ£ÏÂ
-       /*Ê¹ÓÃlisten.petID¶ø²»ÊÇ¶¨ÒåÒ»¸ö±äÁ¿int petID = listen.petID;
-        *ÊÇÒòÎªÔÚÔË¶¯¹ı³ÌÖĞµã»÷¡°ÇĞ»»³èÎï¡±Ê±Êµ¼ÊµÄpetID»á¸Ä±ä£¬ËùÒÔÊ¹ÓÃlisten.petID¾Í¿ÉÒÔ×öµ½Í¬²½¸Ä±ä¡£
-        *ÈôÏÂÃæÊ¹ÓÃlisten.mainimg(petID,0)ÏÔÊ¾µÄ¾ÍÊÇµã»÷¡°ÇĞ»»³èÎï¡±Ç°µÄ³èÎï£¬Õâ¸öpetID¾ÍÊÇ¾ÉµÄpetID¡£
+       //ç‚¹å‡»å°±åœä¸‹
+       /*ä½¿ç”¨listen.petIDè€Œä¸æ˜¯å®šä¹‰ä¸€ä¸ªå˜é‡int petID = listen.petID;
+        *æ˜¯å› ä¸ºåœ¨è¿åŠ¨è¿‡ç¨‹ä¸­ç‚¹å‡»â€œåˆ‡æ¢å® ç‰©â€æ—¶å®é™…çš„petIDä¼šæ”¹å˜ï¼Œæ‰€ä»¥ä½¿ç”¨listen.petIDå°±å¯ä»¥åšåˆ°åŒæ­¥æ”¹å˜ã€‚
+        *è‹¥ä¸‹é¢ä½¿ç”¨listen.mainimg(petID,0)æ˜¾ç¤ºçš„å°±æ˜¯ç‚¹å‡»â€œåˆ‡æ¢å® ç‰©â€å‰çš„å® ç‰©ï¼Œè¿™ä¸ªpetIDå°±æ˜¯æ—§çš„petIDã€‚
         */
        imageView.addEventHandler(MouseEvent.MOUSE_PRESSED,
              e ->{exit = true;listen.mainimg(listen.petID, 0);});
        while(!exit) {
-          //Èç¹ûpetID!=listen.petID£¬ÔòÒÑ¡°ÇĞ»»³èÎï¡±£¬´ËÊ±Òª½áÊøÔË¶¯¡£
+          //å¦‚æœpetID!=listen.petIDï¼Œåˆ™å·²â€œåˆ‡æ¢å® ç‰©â€ï¼Œæ­¤æ—¶è¦ç»“æŸè¿åŠ¨ã€‚
           if(petID!=listen.petID) {
              exit=true;
              return;
@@ -51,10 +51,10 @@ public class Move extends Thread{
                listen.mainimg(listen.petID, 0);
                return;
             }
-            if(direID == 0) {  //Ïò×ó×ß
+            if(direID == 0) {  //å‘å·¦èµ°
                stage.setX(x-speed);
             }
-            else if(direID == 1) { //ÏòÓÒ×ß
+            else if(direID == 1) { //å‘å³èµ°
                stage.setX(x+speed);
             }
             time -= 300;

@@ -1,0 +1,65 @@
+.title-bar {
+    -fx-background-color: #7a5017;
+    -fx-padding: 10px;
+    -fx-alignment: center-right;
+}
+
+
+.button {
+    -fx-background-color: transparent; /* 背景颜色透明 */
+    -fx-border-color: e09d41;          /* 边框颜色 */
+    -fx-text-fill: black;              /* 字体颜色 */
+    -fx-font-size: 14px;               /* 字体大小 */
+    -fx-padding: 5px 10px;            /* 内边距 */
+    -fx-border-radius: 3;              /* 边框圆角 */
+    -fx-background-radius: 3;          /* 背景圆角 */
+}
+
+}
+
+.button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.title-bar .button {    
+    -fx-text-fill: white !important;    
+    -fx-font-size: 14px !important;    
+    -fx-background: #ffe4b5 !important;
+    -fx-border-color: transparent;
+}
+
+
+
+.action-button {
+    -fx-background-color: #f9a000; /* Orange color for send and clear */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-alignment: center-right;
+}
+
+.action-button:hover {
+    -fx-background-color: #f9a000;
+}
+
+
+.chat-area {
+    -fx-font-size: 14px;
+    -fx-control-inner-background: #fff7e9;
+    -fx-border-color: #f4b400;
+}
+
+.input-field {
+    -fx-font-size: 14px;
+    -fx-padding: 13px;
+}
+
+/* General layout styling */
+.content-box {
+    -fx-background-color: #fef1e6;
+    -fx-border-radius: 0 0 10px 10px;
+    -fx-padding: 10px;
+}

@@ -1,6 +1,8 @@
 package application;
 import javax.swing.*;
 
+import javafx.scene.image.ImageView;
+
 // import javafx.application.Application;
 // import javafx.scene.Scene;
 // import javafx.scene.layout.Background;
@@ -497,7 +499,7 @@ public class TomatoTimerHong{
 
         forText.setBounds(0,25,600,250);
         window1.add(forText);
-
+        
         
 
         //LayeredPane安排叠加顺序

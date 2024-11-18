@@ -7,62 +7,62 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Move extends Thread{
-    private long time;
-    private ImageView imageView;
-    private int direID;
+	private long time;
+	private ImageView imageView;
+	private int direID;
     double x;
     double maxx;
     double width;
     Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
     Stage stage;
-    private EventListener listen;
-    private int petID;
-    boolean exit;
-    
-    public Move(long time, ImageView imgView, int dire, Stage primaryStage, EventListener el) {
-       this.time = time;
-       imageView = imgView;
-       direID = dire;
-       stage = primaryStage;
-       listen = el;
-       petID = listen.petID;//æ­¤petIDæ˜¯è°ƒç”¨Moveæ—¶çš„petID
-    }
-    
-    public void run() {
-       //ç‚¹å‡»å°±åœä¸‹
-       /*ä½¿ç”¨listen.petIDè€Œä¸æ˜¯å®šä¹‰ä¸€ä¸ªå˜é‡int petID = listen.petID;
-        *æ˜¯å› ä¸ºåœ¨è¿åŠ¨è¿‡ç¨‹ä¸­ç‚¹å‡»â€œåˆ‡æ¢å® ç‰©â€æ—¶å®žé™…çš„petIDä¼šæ”¹å˜ï¼Œæ‰€ä»¥ä½¿ç”¨listen.petIDå°±å¯ä»¥åšåˆ°åŒæ­¥æ”¹å˜ã€‚
-        *è‹¥ä¸‹é¢ä½¿ç”¨listen.mainimg(petID,0)æ˜¾ç¤ºçš„å°±æ˜¯ç‚¹å‡»â€œåˆ‡æ¢å® ç‰©â€å‰çš„å® ç‰©ï¼Œè¿™ä¸ªpetIDå°±æ˜¯æ—§çš„petIDã€‚
-        */
-       imageView.addEventHandler(MouseEvent.MOUSE_PRESSED,
-             e ->{exit = true;listen.mainimg(listen.petID, 0);});
-       while(!exit) {
-          //å¦‚æžœpetID!=listen.petIDï¼Œåˆ™å·²â€œåˆ‡æ¢å® ç‰©â€ï¼Œæ­¤æ—¶è¦ç»“æŸè¿åŠ¨ã€‚
-          if(petID!=listen.petID) {
-             exit=true;
-             return;
-          }
-           width = imageView.getBoundsInLocal().getMaxX();
-           x = stage.getX();
-           maxx = screenBounds.getMaxX();
-          double speed=15;
-            if(x+speed+width >= maxx | x-speed<=0 | time<=0) {
-               this.interrupt();
-               listen.mainimg(listen.petID, 0);
-               return;
-            }
-            if(direID == 0) {  //å‘å·¦èµ°
-               stage.setX(x-speed);
-            }
-            else if(direID == 1) { //å‘å³èµ°
-               stage.setX(x+speed);
-            }
-            time -= 300;
-            try {
-               Thread.sleep(300);
-              } catch (InterruptedException e) {    
-               e.printStackTrace();
-              }
-       }
+	private EventListener listen;
+	private int petID;
+	boolean exit;
+	
+	public Move(long time, ImageView imgView, int dire, Stage primaryStage, EventListener el) {
+		this.time = time;
+		imageView = imgView;
+		direID = dire;
+		stage = primaryStage;
+		listen = el;
+		petID = listen.petID;//´ËpetIDÊÇµ÷ÓÃMoveÊ±µÄpetID
+	}
+	
+	public void run() {
+		//µã»÷¾ÍÍ£ÏÂ
+		/*Ê¹ÓÃlisten.petID¶ø²»ÊÇ¶¨ÒåÒ»¸ö±äÁ¿int petID = listen.petID;
+		 *ÊÇÒòÎªÔÚÔË¶¯¹ý³ÌÖÐµã»÷¡°ÇÐ»»³èÎï¡±Ê±Êµ¼ÊµÄpetID»á¸Ä±ä£¬ËùÒÔÊ¹ÓÃlisten.petID¾Í¿ÉÒÔ×öµ½Í¬²½¸Ä±ä¡£
+		 *ÈôÏÂÃæÊ¹ÓÃlisten.mainimg(petID,0)ÏÔÊ¾µÄ¾ÍÊÇµã»÷¡°ÇÐ»»³èÎï¡±Ç°µÄ³èÎï£¬Õâ¸öpetID¾ÍÊÇ¾ÉµÄpetID¡£
+		 */
+		imageView.addEventHandler(MouseEvent.MOUSE_PRESSED,
+				e ->{exit = true;listen.mainimg(listen.petID, 0);});
+		while(!exit) {
+			//Èç¹ûpetID!=listen.petID£¬ÔòÒÑ¡°ÇÐ»»³èÎï¡±£¬´ËÊ±Òª½áÊøÔË¶¯¡£
+			if(petID!=listen.petID) {
+				exit=true;
+				return;
+			}
+		    width = imageView.getBoundsInLocal().getMaxX();
+		    x = stage.getX();
+		    maxx = screenBounds.getMaxX();
+			double speed=15;
+	        if(x+speed+width >= maxx | x-speed<=0 | time<=0) {
+	        	this.interrupt();
+	        	listen.mainimg(listen.petID, 0);
+	        	return;
+	        }
+	        if(direID == 0) {	//Ïò×ó×ß
+	        	stage.setX(x-speed);
+	        }
+	        else if(direID == 1) {	//ÏòÓÒ×ß
+	        	stage.setX(x+speed);
+	        }
+	        time -= 300;
+	        try {
+			     Thread.sleep(300);
+			    } catch (InterruptedException e) {    
+			     e.printStackTrace();
+			    }
+		}
 	}
 }

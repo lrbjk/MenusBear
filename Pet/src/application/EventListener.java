@@ -129,7 +129,5 @@ public class EventListener implements EventHandler<MouseEvent> {
 		if(key == 0) gifID=0;
     }
 	
-//	public void setPetID(int id) {
-//		petID = id;
-//	}
+
 }

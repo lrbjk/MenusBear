@@ -31,7 +31,7 @@ public class Main extends Application {
 			 * 加载相对路径的图片要用class.getResource，不然运行jar包时会报错：找不到文件路径！
 			 * 路径中第一个“/”是必需的，它表示类的根目录，类文件夹在此项目中与lxh和biu在同一级
 			 */
-			image = new Image(this.getClass().getResourceAsStream("/biu/biu0.gif"));
+			image = new Image(this.getClass().getResourceAsStream("/biu/MB0.gif"));
 	      	imageView = new ImageView(image); 
 	      	imageView.setX(40); 
 	      	imageView.setY(0);

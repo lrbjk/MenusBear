@@ -141,7 +141,7 @@ public class Main extends Application {
 			
             // 监听 isAwake 变化
             ui.isAwake().addListener((observable, oldValue, newValue) -> {
-                if (newValue) {
+                if (!newValue) {
                     // 如果 isAwake 为 true，更新 AnchorPane，添加按钮
                     if (!pane.getChildren().contains(chat)) {
                         pane.getChildren().add(chat);
@@ -155,6 +155,19 @@ public class Main extends Application {
                     if (!pane.getChildren().contains(convert)) {
                         pane.getChildren().add(convert);
                     }
+					// 设置 convert 按钮事件逻辑
+					convert.setOnAction(event -> {
+						System.out.println("按钮被点击, 当前状态: " + ui.isAwake().get());
+						// 检查宠物是否为唤醒状态
+						if (ui.isAwake().get()) {
+							ui.setPetState("Sleep"); // 切换到休眠状态
+							ui.isAwake().set(false); // 更新状态
+						} else {
+							System.out.println("切换到待机状态...");
+							// 使用 toggleAwakeState 来处理逻辑，但忽略默认的 else 分支
+							ui.customToggleAwakeState(); // 替换默认 else 行为
+						}
+					});
                 } else {
                     // 如果 isAwake 为 false，移除按钮
                     pane.getChildren().removeAll(chat, tomato, todo, convert);

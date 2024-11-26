@@ -100,6 +100,25 @@ public class Main extends Application {
 			pane.setStyle("-fx-background:transparent;");
 			
 			//使窗体能拖动。先获取按下鼠标时的坐标p1，再将窗体坐标设为p1加拖动的位移量
+
+			BodyPartInteraction leftEyeInteraction = new BodyPartInteraction("leftEte",imageView,pane);
+
+			listen = new EventListener(imageView, petID);
+			imageView.addEventFilter(javafx.scene.input.MouseEvent.MOUSE_CLICKED,event -> {
+				listen.handle(event);
+
+				double x = event.getX();
+				double y = event.getY();
+
+				if(isLeftEyeClicked(x,y)){
+					
+					leftEyeInteraction.handleClick(listen.getTime());
+					System.out.println("WDF");
+				}
+			});
+
+
+
 			pane.setOnMousePressed(event -> {
 			    xOffset = event.getSceneX();
 			    yOffset = event.getSceneY();
@@ -178,8 +197,14 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 	}
+
+	private boolean isLeftEyeClicked(double x, double y)
+	{
+		return  x > 70 && x < 90 && y > 14 && y < 24;
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 
 }

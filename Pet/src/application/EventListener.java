@@ -31,27 +31,27 @@ public class EventListener implements EventHandler<MouseEvent> {
 	public void lxhBehavior(double x,double y) {
 		System.out.println(x +"-lrbsb-"+ y );
 		if(x > 70 && x < 90 && y > 14 && y < 24){
-			gifID = 2;
+			gifID = 0;
 			time = 1;
 		}
 		else if(x > 140 && x < 164 && y > 14 && y < 24){
-			gifID = 3;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 78 && x < 162 && y > 40 && y < 80){
-			gifID = 5;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 94 && x < 146 && y > 88 && y < 115){
-			gifID = 1;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 78 && x < 89 && y > 91 && y < 102){
-			gifID = 4;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 146 && x < 153 && y > 91 && y < 102){
-			gifID = 6;
+			gifID = 0;
 			time = 1;
 		}
 		else {
@@ -62,27 +62,27 @@ public class EventListener implements EventHandler<MouseEvent> {
 	public void biuBehavior(double x,double y) {
 		System.out.println(x +"-lrbsb-"+ y );
 		if(x > 70 && x < 90 && y > 14 && y < 24){
-			gifID = 2;
+			gifID = 0;
 			time = 1;
 		}
 		else if(x > 140 && x < 164 && y > 14 && y < 24){
-			gifID = 3;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 150 && x < 162 && y > 10 && y < 20){
-			gifID = 5;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 94 && x < 146 && y > 88 && y < 115){
-			gifID = 1;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 78 && x < 89 && y > 91 && y < 102){
-			gifID = 4;
+			gifID = 0;
 			time = 1;
 		}
 		else if( x > 146 && x < 153 && y > 91 && y < 102){
-			gifID = 6;
+			gifID = 0;
 			time = 1;
 		}
 		else {
@@ -118,5 +118,8 @@ public class EventListener implements EventHandler<MouseEvent> {
 		if(key == 0) gifID=0;
     }
 	
+	public Double getTime(){
+		return time;
+	}
 
 }

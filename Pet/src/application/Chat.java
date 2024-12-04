@@ -87,7 +87,7 @@ public class Chat extends Application {
 
         // Input field and buttons (bottom)
         TextField inputField = new TextField();
-        inputField.setPromptText("输入您的消息...");
+        inputField.setPromptText("输入 '帮助' 获取使用说明");
         inputField.getStyleClass().add("input-field");
         inputField.setPrefHeight(30); // Reduce input field height
 
@@ -104,7 +104,9 @@ public class Chat extends Application {
                 chatArea.appendText("You: " + userInput + "\n");
                 inputField.clear();
                 String reply = getAutoReply(userInput);
+                chatArea.clear();
                 chatArea.appendText("Bear: " + reply + "\n");
+
             }
         });
 
@@ -127,12 +129,21 @@ public class Chat extends Application {
 
     private String getAutoReply(String input) {
         if (input.contains("帮助")) {
-            return "命令\n1. 帮助信息\n2. 使用指南";
-        } else if (input.contains("使用教程")) {
-            return "这是使用教程的内容。";
-        } else if (input.contains("设计理念")) {
-            return "这是设计理念的内容。";
-        } else {
+            return "请输入以下指令\n1. 检查我的日程 \n2. 我的信息 \n3. 可以帮我添加一个五分钟的番茄钟计时吗";
+        } else if (input.contains("检查我的日程")) {
+            return "8:00-10:00 CS260 OVERWATCH \n" +
+                    "10:00-12:00 CS110 Team Project \n" +
+                    "14:00-15:40 CS330 Software design \n" +
+                    "8:00-10:00 CS420 StoneHeart \n";
+        } else if (input.contains("我的信息")) {
+            return "Project: Menus(Mus) Bear \n" +
+                    "Group name: Menus Bear developers \n" +
+                    "MU Email: XinHang.hu.1950@mumail.ie \n" +
+                    "Status: I have girl friend \n";}
+            else if (input.contains("可以帮我添加一个五分钟的番茄钟计时吗")) {
+                return "已经为您添加了五分钟的番茄钟计时了哦，欧尼酱 \n";
+        }
+            else {
             return "抱歉，我不明白您的意思。";
         }
     }

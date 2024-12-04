@@ -8,10 +8,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.scene.input.MouseEvent;
 
 public class Chat extends Application {
 
@@ -20,117 +21,132 @@ public class Chat extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Remove window borders
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        // Remove window borders and make the window transparent
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         BorderPane borderPane = new BorderPane();
 
-        // Custom title bar with buttons
-        HBox titleBar = new HBox();
-        titleBar.getStyleClass().add("title-bar");
+        // Set a background color or image
+        borderPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-image: url('" + getClass().getResource("background.png") + "');" +
+                        "-fx-background-size: cover;" +
+                        "-fx-background-color: #e2d3bc;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-border-radius: 20;" +
+                        "-fx-border-color: lightgray;" +
+                        "-fx-border-width: 2;"
+        );
+
+
+        // Custom control buttons
+        VBox controlButtons = new VBox(10);
+        controlButtons.setPadding(new Insets(10));
+        controlButtons.getStyleClass().add("control-buttons");
 
         Button minimizeButton = new Button("-");
-        Button maximizeButton = new Button("[ ]");
+        Button maximizeButton = new Button("[]");
         Button closeButton = new Button("X");
+
+        // Set buttons to be smaller and square-shaped
+        minimizeButton.setPrefSize(20, 20);
+        maximizeButton.setPrefSize(20, 20);
+        closeButton.setPrefSize(20, 20);
+
+        minimizeButton.getStyleClass().add("minimize-button");
+        maximizeButton.getStyleClass().add("maximize-button");
+        closeButton.getStyleClass().add("close-button");
 
         closeButton.setOnAction(event -> primaryStage.close());
         minimizeButton.setOnAction(event -> primaryStage.setIconified(true));
-        
-        // Toggle maximized state
-        maximizeButton.setOnAction(event -> {
-            primaryStage.setMaximized(!primaryStage.isMaximized());
-        });
+        maximizeButton.setOnAction(event -> primaryStage.setMaximized(!primaryStage.isMaximized()));
 
-        titleBar.getChildren().addAll(minimizeButton, maximizeButton, closeButton);
+        controlButtons.getChildren().addAll(closeButton, maximizeButton, minimizeButton);
 
-        titleBar.setOnMousePressed(event -> {
+        // Add drag functionality to the entire borderPane
+        borderPane.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
-        titleBar.setOnMouseDragged(event -> {
+        borderPane.setOnMouseDragged(event -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        // Chat area
+        // Chat area (right side, occupying 75% of the width)
         TextArea chatArea = new TextArea();
         chatArea.setEditable(false);
         chatArea.setWrapText(true);
         chatArea.getStyleClass().add("chat-area");
 
-        // Input field and buttons
-        TextField inputField = new TextField();
-        inputField.setPromptText("ÊäÈëÄúµÄÏûÏ¢...");
-        inputField.getStyleClass().add("input-field");
+        StackPane chatBox = new StackPane(chatArea);
+        chatBox.getStyleClass().add("chat-box");
+        chatBox.setPadding(new Insets(10));
+        chatBox.setPrefWidth(380);
 
-        Button sendButton = new Button("·¢ËÍ");
-        sendButton.getStyleClass().add("action-button");
-        
-        // Action to send message
+        // Input field and buttons (bottom)
+        TextField inputField = new TextField();
+        inputField.setPromptText("è¾“å…¥ 'å¸®åŠ©' è·å–ä½¿ç”¨è¯´æ˜");
+        inputField.getStyleClass().add("input-field");
+        inputField.setPrefHeight(30); // Reduce input field height
+
+        Button sendButton = new Button("å‘é€");
+        sendButton.getStyleClass().add("send-button");
+        sendButton.setPrefHeight(30); // Match input field height
+
+        // Set input field width to 80% of the window width
+        inputField.prefWidthProperty().bind(borderPane.widthProperty().multiply(0.8));
+
         sendButton.setOnAction(event -> {
             String userInput = inputField.getText();
             if (!userInput.trim().isEmpty()) {
                 chatArea.appendText("You: " + userInput + "\n");
                 inputField.clear();
                 String reply = getAutoReply(userInput);
+                chatArea.clear();
                 chatArea.appendText("Bear: " + reply + "\n");
+
             }
         });
 
-        // Clear chat button
-        Button clearButton = new Button("Çå¿Õ");
-        clearButton.getStyleClass().add("action-button");
-        clearButton.setOnAction(event -> chatArea.clear());
-
-        // Additional buttons for predefined text
-        Button helloButton = new Button("°ïÖú");
-        Button askQuestionButton = new Button("Ê¹ÓÃ½Ì³Ì");
-        Button noPlayButton = new Button("Éè¼ÆÀíÄî");
-
-        helloButton.setOnAction(event -> inputField.setText("°ïÖú"));
-        askQuestionButton.setOnAction(event -> inputField.setText("Ê¹ÓÃ½Ì³Ì"));
-        noPlayButton.setOnAction(event -> inputField.setText("Éè¼ÆÀíÄî"));
-
-        // Arrange predefined buttons
-        HBox predefinedButtonsBox = new HBox(10, helloButton, askQuestionButton, noPlayButton);
-        predefinedButtonsBox.setPadding(new Insets(10));
-
-        // Arrange action buttons in a separate row
-        HBox actionButtonsBox = new HBox(10, sendButton, clearButton);
-        actionButtonsBox.setPadding(new Insets(10));
-
-        // Arrange input field and buttons vertically
-        VBox inputBox = new VBox(10, inputField, predefinedButtonsBox, actionButtonsBox);
+        HBox inputBox = new HBox(10, inputField, sendButton);
         inputBox.setPadding(new Insets(10));
+        inputBox.getStyleClass().add("input-box");
 
-        // Main layout
-        VBox contentBox = new VBox(10, chatArea, inputBox);
-        contentBox.setPadding(new Insets(10));
-        contentBox.getStyleClass().add("content-box");
+        // Assemble layout
+        borderPane.setRight(chatBox); // Chat box on the right
+        borderPane.setBottom(inputBox); // Input box at the bottom
+        borderPane.setLeft(controlButtons); // Control buttons on the left
 
-        borderPane.setTop(titleBar);
-        borderPane.setCenter(contentBox);
-
-        Scene scene = new Scene(borderPane, 600, 400);
-        scene.getStylesheets().add(getClass().getResource("Chat_styles.css").toExternalForm());
+        // Main scene
+        Scene scene = new Scene(borderPane, 600, 400); // Window size: 800x600
+        scene.setFill(Color.TRANSPARENT); // Set the scene background to transparent
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
     private String getAutoReply(String input) {
-        if (input.contains("°ïÖú")) {
-            return "ÃüÁî\n1.\n2.\n";
-        } else if (input.contains("Ê¹ÓÃ½Ì³Ì")) {
-            return "ÃüÁî\n1.\n2.\n";
-        } else if (input.contains("Éè¼ÆÀíÄî")) {
-            return "Overwatch!!!!!!!!!!!!!!!";
-        } else {
-            return "±§Ç¸£¬²»ÍæÊØÍûÏÈ·æ±ğÎÊÎÒ";
+        if (input.contains("å¸®åŠ©")) {
+            return "è¯·è¾“å…¥ä»¥ä¸‹æŒ‡ä»¤\n1. æ£€æŸ¥æˆ‘çš„æ—¥ç¨‹ \n2. æˆ‘çš„ä¿¡æ¯ \n3. å¯ä»¥å¸®æˆ‘æ·»åŠ ä¸€ä¸ªäº”åˆ†é’Ÿçš„ç•ªèŒ„é’Ÿè®¡æ—¶å—";
+        } else if (input.contains("æ£€æŸ¥æˆ‘çš„æ—¥ç¨‹")) {
+            return "8:00-10:00 CS260 OVERWATCH \n" +
+                    "10:00-12:00 CS110 Team Project \n" +
+                    "14:00-15:40 CS330 Software design \n" +
+                    "8:00-10:00 CS420 StoneHeart \n";
+        } else if (input.contains("æˆ‘çš„ä¿¡æ¯")) {
+            return "Project: Menus(Mus) Bear \n" +
+                    "Group name: Menus Bear developers \n" +
+                    "MU Email: XinHang.hu.1950@mumail.ie \n" +
+                    "Status: I have girl friend \n";}
+            else if (input.contains("å¯ä»¥å¸®æˆ‘æ·»åŠ ä¸€ä¸ªäº”åˆ†é’Ÿçš„ç•ªèŒ„é’Ÿè®¡æ—¶å—")) {
+                return "å·²ç»ä¸ºæ‚¨æ·»åŠ äº†äº”åˆ†é’Ÿçš„ç•ªèŒ„é’Ÿè®¡æ—¶äº†å“¦ï¼Œæ¬§å°¼é…± \n";
+        }
+            else {
+            return "æŠ±æ­‰ï¼Œæˆ‘ä¸æ˜ç™½æ‚¨çš„æ„æ€ã€‚";
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

@@ -40,13 +40,13 @@ public class TomatoTimer{
     static String fileName = "TomatoConfig.txt";
     
     int recMinutes;
-    int minutes; // ´´½¨Ò»¸öÕûĞÍ±äÁ¿£¬ÓÃÓÚ´æ´¢·ÖÖÓÊı
-    int seconds; // ´´½¨Ò»¸öÕûĞÍ±äÁ¿£¬ÓÃÓÚ´æ´¢ÃëÊı
-    Timer timer;// ´´½¨Ò»¸öTimer¶ÔÏó£¬ÓÃÓÚ¼ÆÊ±
+    int minutes; // ????????????????????æ´¢??????
+    int seconds; // ????????????????????æ´¢????
+    Timer timer;// ???????Timer??????????
 
     public TomatoTimer(boolean tempIsCN, int timeSet){
-        //´´½¨´°¿Ú
-        String title = "·¬ÇÑÊ±ÖÓ";
+        //????????
+        String title = "???????";
         isCN = tempIsCN;
         recMinutes = timeSet;
         if(!tempIsCN)   title = "Tomato Timer";
@@ -54,18 +54,18 @@ public class TomatoTimer{
 
         // window1.getStylesheets().add(getClass());
 
-        //³õÊ¼»¯
-        minutes = timeSet; // ³õÊ¼»¯·ÖÖÓÊıÎª25
-        seconds = 0; // ³õÊ¼»¯ÃëÊıÎª0
-        // timer = new Timer(1000, new TimerListener()); // ´´½¨Ò»¸ö¼ä¸ôÎª1000msµÄTimer¶ÔÏó£¬²¢ÎªÆäÌí¼ÓActionListener
+        //?????
+        minutes = timeSet; // ????????????25
+        seconds = 0; // ??????????0
+        // timer = new Timer(1000, new TimerListener()); // ???????????1000ms??Timer???????????ActionListener
 
-        //Ò»¸öÓÃÀ´·Å±³¾°Í¼Æ¬µÄPanel
+        //????????????????Panel
         forImage = new JPanel();
 
         forUI = new JPanel();
         if(tempIsCN){
-            mini = new JButton("×îĞ¡»¯");
-            quit = new JButton("¹Ø±Õ");
+            mini = new JButton("??Ğ¡??");
+            quit = new JButton("???");
         }else{
             mini = new JButton("Minimize");
             quit = new JButton("Quit");
@@ -96,25 +96,25 @@ public class TomatoTimer{
         quit.setFont(new Font("SimHei", Font.BOLD, 20));
 
 
-        //¼ÓÔØÍ¼Æ¬
+        //??????
         icon = new ImageIcon("testBackground.png");
 
-        //±³¾°²ãÄÚÈİ
+        //??????????
         backgroundLabel = new JLabel(icon);
         backgroundLabel.setBounds(0,0,600,400);
 
         window1.getLayeredPane().add(backgroundLabel, Integer.valueOf(Integer.MIN_VALUE));
         window1.setResizable(false);
 
-        //Ò»¸öÓÃÀ´·Å°´Å¥µÄPanel
+        //?????????????Panel
         forContent = new JPanel(new GridLayout(1, 4));
         forContent.setPreferredSize(new Dimension(600, 80));
-        //Ò»¸öÓÃÀ´·ÅÎÄ×ÖµÄPanel
+        //??????????????Panel
         forText = new JPanel();
         forText.setOpaque(false);
 
-        //ÎÄ×Ö
-        label = new JLabel(minutes+":00", SwingConstants.CENTER); // ´´½¨Ò»¸ö³õÊ¼ÖµÎª¡°25:00¡±µÄJLabel¶ÔÏó
+        //????
+        label = new JLabel(minutes+":00", SwingConstants.CENTER); // ??????????????25:00????JLabel????
         label.setFont(new Font("Times New Roman", Font.BOLD, 200));
         label.setForeground(new Color(41,33,16));
         // label.setForeground(Color.white);
@@ -295,8 +295,8 @@ public class TomatoTimer{
             }
         });
 
-        //°´Å¥ÃÇ
-        String a = "¿ªÊ¼";
+        //?????
+        String a = "???";
         if(!tempIsCN)   a = "Begin";
         startButton = new JButton(a);
         startButton.setFont(new Font("SimHei", Font.BOLD, 40));
@@ -329,7 +329,7 @@ public class TomatoTimer{
             }
         });
 
-        a = "ÔİÍ£";
+        a = "???";
         if(!tempIsCN)   a = "Pause";
         stopButton = new JButton(a);
         stopButton.setFont(new Font("SimHei", Font.BOLD, 40));
@@ -362,7 +362,7 @@ public class TomatoTimer{
             }
         });
 
-        a = "ÖØÖÃ";
+        a = "????";
         if(!tempIsCN)   a = "Reset";
         resetButton = new JButton(a);
         resetButton.setFont(new Font("SimHei", Font.BOLD, 40));
@@ -395,7 +395,7 @@ public class TomatoTimer{
             }
         });
 
-        a = "ÉèÖÃ";
+        a = "????";
         if(!tempIsCN)   a = "Options";
         setButton = new JButton(a);
         setButton.setFont(new Font("SimHei", Font.BOLD, 40));
@@ -428,10 +428,10 @@ public class TomatoTimer{
             }
         });
 
-        startButton.setBorderPainted(false); //ÉèÎª±ß½çÍ¸Ã÷
-        stopButton.setBorderPainted(false); //ÉèÎª±ß½çÍ¸Ã÷
-        resetButton.setBorderPainted(false); //ÉèÎª±ß½çÍ¸Ã÷
-        setButton.setBorderPainted(false); //ÉèÎª±ß½çÍ¸Ã÷
+        startButton.setBorderPainted(false); //?????????
+        stopButton.setBorderPainted(false); //?????????
+        resetButton.setBorderPainted(false); //?????????
+        setButton.setBorderPainted(false); //?????????
 
         // startButton.setBorder(BorderFactory.createRaisedBevelBorder());
 
@@ -446,27 +446,27 @@ public class TomatoTimer{
         d.addActionListener(new dListener());
         ee.addActionListener(new eListener());
 
-        startButton.addActionListener(new StartButtonListener()); // ÎªstartButtonÌí¼ÓActionListener
-        stopButton.addActionListener(new StopButtonListener()); // ÎªstopButtonÌí¼ÓActionListener
-        resetButton.addActionListener(new ResetButtonListener()); // ÎªresetButtonÌí¼ÓActionListener
-        setButton.addActionListener(new SetTimeButtonListener()); // ÎªsetTimeButtonÌí¼ÓActionListener
+        startButton.addActionListener(new StartButtonListener()); // ?startButton???ActionListener
+        stopButton.addActionListener(new StopButtonListener()); // ?stopButton???ActionListener
+        resetButton.addActionListener(new ResetButtonListener()); // ?resetButton???ActionListener
+        setButton.addActionListener(new SetTimeButtonListener()); // ?setTimeButton???ActionListener
 
-        timer = new Timer(1000, new TimerListener()); // ´´½¨Ò»¸ö¼ä¸ôÎª1000msµÄTimer¶ÔÏó£¬²¢ÎªÆäÌí¼ÓActionListener
+        timer = new Timer(1000, new TimerListener()); // ???????????1000ms??Timer???????????ActionListener
  
-        //ÔÚPanelÖĞÌí¼ÓÎÄ×ÖºÍ°´Å¥
+        //??Panel????????????
         forText.add(label, BorderLayout.CENTER);
         forContent.add(startButton);
         forContent.add(stopButton);
         forContent.add(resetButton);
         forContent.add(setButton);
 
-        //ĞŞ¸Ä·Ç±³¾°PanelµÄÍ¸Ã÷¶È£¨ºÃÏñÃ»ÓÃ£©
+        //???????Panel????????????????
         imPanel = (JPanel)window1.getContentPane();
         imPanel.setOpaque(false);
         forContent.setOpaque(false);
         forText.setOpaque(false);
 
-        //°ÑPanelÌí¼Óµ½FrameÉÏ
+        //??Panel????Frame??
         // window1.setLayout(new BorderLayout(0, 15));
         window1.getContentPane().setLayout(null);
 
@@ -488,8 +488,8 @@ public class TomatoTimer{
         
      
 
-        //¾àÀëÆÁÄ»×ó±ß100¸öÏñËØ£¬ÉÏ±ß100¸öÏñËØ£¬´°¿ÚµÄ¿íÊÇ300£¬¸ßÊÇ300
-		window1.setBounds(100,100,600,400);    //ÉèÖÃ´°¿Ú1ÔÚÆÁÄ»ÉÏµÄÎ»ÖÃ¼°´óĞ¡
+        //??????????100??????????100???????????????300??????300
+		window1.setBounds(100,100,600,400);    //???????1????????Î»?Ã¼???Ğ¡
 
         window1.setUndecorated(true);
 
@@ -498,7 +498,7 @@ public class TomatoTimer{
             public void mousePressed(MouseEvent e) 
             {
                 /*
-                                                    * »ñÈ¡µã»÷Êó±êÊ±µÄ×ø±ê
+                                                    * ????????????????
                  */
                 mouseAtX = e.getPoint().x;
                 mouseAtY = e.getPoint().y;
@@ -509,18 +509,18 @@ public class TomatoTimer{
           {
               public void mouseDragged(MouseEvent e) 
               {
-                  window1.setLocation((e.getXOnScreen()-mouseAtX),(e.getYOnScreen()-mouseAtY));//ÉèÖÃÍÏ×§ºó£¬´°¿ÚµÄÎ»ÖÃ
+                  window1.setLocation((e.getXOnScreen()-mouseAtX),(e.getYOnScreen()-mouseAtY));//?????????????Î»??
               }
           });
 
 
-		window1.setVisible(true); //ÉèÖÃ´°¿Ú¿É¼û
+		window1.setVisible(true); //?????????
         // window1.getContentPane().setBackground(Color.red);
-		window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//ÊÍ·Åµ±Ç°´°¿Ú
+		window1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);//?????????
     }
 
-    public void start() { // Æô¶¯·¬ÇÑ¹¤×÷·¨¼ÆÊ±Æ÷
-        window1.setVisible(true); // ½«´°¿ÚÉèÖÃÎª¿É¼û
+    public void start() { // ??????????????????
+        window1.setVisible(true); // ??????????????
     }
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -536,124 +536,124 @@ public class TomatoTimer{
         }
 	}
 
-    private class StartButtonListener implements ActionListener { // ¿ªÊ¼°´Å¥µÄActionListener
+    private class StartButtonListener implements ActionListener { // ????????ActionListener
         public void actionPerformed(ActionEvent e) {
-            timer.start(); // Æô¶¯¼ÆÊ±Æ÷
+            timer.start(); // ?????????
         }
     }
 
     private class aListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            minutes = 5; // ¸üĞÂ·ÖÖÓÊı
+            minutes = 5; // ???Â·?????
             recMinutes = 5;
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
             timer.stop();
         }
     }
 
     private class bListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            minutes = 10; // ¸üĞÂ·ÖÖÓÊı
+            minutes = 10; // ???Â·?????
             recMinutes = 10;
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
             timer.stop();
         }
     }
 
     private class cListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            minutes = 15; // ¸üĞÂ·ÖÖÓÊı
+            minutes = 15; // ???Â·?????
             recMinutes = 15;
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
             timer.stop();
         }
     }
 
     private class dListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            minutes = 20; // ¸üĞÂ·ÖÖÓÊı
+            minutes = 20; // ???Â·?????
             recMinutes = 20;
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
             timer.stop();
         }
     }
 
     private class eListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            minutes = 45; // ¸üĞÂ·ÖÖÓÊı
+            minutes = 45; // ???Â·?????
             recMinutes = 45;
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
             timer.stop();
         }
     }
 
-    private class StopButtonListener implements ActionListener { // Í£Ö¹°´Å¥µÄActionListener
+    private class StopButtonListener implements ActionListener { // ???????ActionListener
         public void actionPerformed(ActionEvent e) {
-            timer.stop(); // Í£Ö¹¼ÆÊ±Æ÷
+            timer.stop(); // ???????
         }
     }
 
-    private class ResetButtonListener implements ActionListener { // ÖØÖÃ°´Å¥µÄActionListener
+    private class ResetButtonListener implements ActionListener { // ????????ActionListener
         public void actionPerformed(ActionEvent e) {
-            timer.stop(); // Í£Ö¹¼ÆÊ±Æ÷
-            minutes = recMinutes; // ½«·ÖÖÓÊıÖØÖÃÎª25
-            seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            timer.stop(); // ???????
+            minutes = recMinutes; // ?????????????25
+            seconds = 0; // ???????????0
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
         }
     }
 
-    private class SetTimeButtonListener implements ActionListener { // ÉèÖÃÊ±¼ä°´Å¥µÄActionListener
+    private class SetTimeButtonListener implements ActionListener { // ??????????ActionListener
         public void actionPerformed(ActionEvent e) {
             String str = "Enter time in minutes (max 60):";
-            if(isCN)    str = "ÇëÊäÈëÊ±¼ä£¨²»³¬¹ı60·ÖÖÓ£©";
-            String input = JOptionPane.showInputDialog(window1, str); // µ¯³öÒ»¸ö¶Ô»°¿ò£¬ÌáÊ¾ÓÃ»§ÊäÈë·ÖÖÓÊı
+            if(isCN)    str = "???????????????60?????";
+            String input = JOptionPane.showInputDialog(window1, str); // ???????????????????????????
             try {
-                int newMinutes = Integer.parseInt(input); // ½«ÓÃ»§ÊäÈëµÄ×Ö·û´®×ª»»ÎªÕûĞÍ
-                if (newMinutes > 0 && newMinutes <= 60) { // Èç¹ûÊäÈëµÄ·ÖÖÓÊıÔÚ1µ½60Ö®¼ä
-                    minutes = newMinutes; // ¸üĞÂ·ÖÖÓÊı
+                int newMinutes = Integer.parseInt(input); // ???????????????????????
+                if (newMinutes > 0 && newMinutes <= 60) { // ???????????????1??60???
+                    minutes = newMinutes; // ???Â·?????
                     recMinutes = newMinutes;
-                    seconds = 0; // ½«ÃëÊıÖØÖÃÎª0
-                    label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
-                } else { // Èç¹ûÊäÈëµÄ·ÖÖÓÊı²»ÔÚ1µ½60Ö®¼ä
+                    seconds = 0; // ???????????0
+                    label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
+                } else { // ?????????????????1??60???
                     str = "Invalid input. Please enter an integer between 1 and 60.";
-                    if(isCN)    str = "ÎŞĞ§ÊäÈë£¬ÇëÊäÈë1-60Ö®¼äµÄÊı×Ö";
-                    JOptionPane.showMessageDialog(window1, str); // µ¯³öÒ»¸ö¶Ô»°¿ò£¬ÌáÊ¾ÓÃ»§ÊäÈë1µ½60Ö®¼äµÄÊı×Ö
+                    if(isCN)    str = "??Ğ§??????????1-60????????";
+                    JOptionPane.showMessageDialog(window1, str); // ??????????????????????1??60????????
                 }
-            } catch (NumberFormatException ex) { // Èç¹ûÓÃ»§ÊäÈëµÄ²»ÊÇÊı×Ö
+            } catch (NumberFormatException ex) { // ??????????????????
                 str = "Invalid input. Please enter an integer between 1 and 60.";
-                    if(isCN)    str = "ÎŞĞ§ÊäÈë£¬ÇëÊäÈë1-60Ö®¼äµÄÊı×Ö";
-                JOptionPane.showMessageDialog(window1, str); // µ¯³öÒ»¸ö¶Ô»°¿ò£¬ÌáÊ¾ÓÃ»§ÊäÈë1µ½60Ö®¼äµÄÊı×Ö
+                    if(isCN)    str = "??Ğ§??????????1-60????????";
+                JOptionPane.showMessageDialog(window1, str); // ??????????????????????1??60????????
             }
         }
     }
 
-    private class TimerListener implements ActionListener { // ¼ÆÊ±Æ÷µÄActionListener
+    private class TimerListener implements ActionListener { // ???????ActionListener
         public void actionPerformed(ActionEvent e) {
-            if (minutes == 0 && seconds == 0) { // Èç¹ûÊ±¼äµ½ÁË
-                timer.stop(); // Í£Ö¹¼ÆÊ±Æ÷
+            if (minutes == 0 && seconds == 0) { // ????????
+                timer.stop(); // ???????
                 String str = "Times Up!";
-                if(isCN)    str = "Ê±¼äµ½£¡";
-                JOptionPane.showMessageDialog(window1, str); // µ¯³öÒ»¸ö¶Ô»°¿ò£¬ÌáÊ¾ÓÃ»§Ê±¼äµ½ÁË
-            } else if (seconds == 0) { // Èç¹ûÃëÊıÎª0
-                minutes--; // ·ÖÖÓÊı¼õ1
-                seconds = 59; // ÃëÊıÖØÖÃÎª59
-            } else { // Èç¹ûÃëÊı²»Îª0
-                seconds--; // ÃëÊı¼õ1
+                if(isCN)    str = "?????";
+                JOptionPane.showMessageDialog(window1, str); // ???????????????????????
+            } else if (seconds == 0) { // ????????0
+                minutes--; // ????????1
+                seconds = 59; // ?????????59
+            } else { // ??????????0
+                seconds--; // ??????1
             }
-            label.setText(String.format("%02d:%02d", minutes, seconds)); // ¸üĞÂlabelµÄÎÄ±¾
+            label.setText(String.format("%02d:%02d", minutes, seconds)); // ????label?????
         }
     }
 
     private class ap implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            if(e.getActionCommand() == "×îĞ¡»¯"){
+            if(e.getActionCommand() == "??Ğ¡??"){
                 window1.setExtendedState(window1.ICONIFIED);
-            }else if(e.getActionCommand() == "¹Ø±Õ"){
+            }else if(e.getActionCommand() == "???"){
             	window1.dispose(); 
             }
         }

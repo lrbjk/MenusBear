@@ -16,17 +16,17 @@ public class OpenSoftwareHandler implements EventHandler<ActionEvent> {
     public void handle(ActionEvent event) {
         try {
             if ("todo".equalsIgnoreCase(softwareName)) {
-                // 打开 TodoList 应用
+                // 鎵撳紑 TodoList 搴旂敤
                 TodoList todoList = new TodoList();
                 Stage stage = new Stage();
                 todoList.start(stage);
             } else if ("chat".equalsIgnoreCase(softwareName)) {
-                // 打开 Chat 应用
+                // 鎵撳紑 Chat 搴旂敤
                 Chat chat = new Chat();
                 Stage stage = new Stage();
                 chat.start(stage);
             } else if ("tomato".equalsIgnoreCase(softwareName)) {
-                // 打开 Tomato 应用
+                // 鎵撳紑 Tomato 搴旂敤
                 TomatoTimer tomatoTimer = new TomatoTimer(true, 30);
                 Stage stage = new Stage();
                 tomatoTimer.start();

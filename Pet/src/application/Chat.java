@@ -6,11 +6,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -21,10 +21,23 @@ public class Chat extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Remove window borders
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-//
+        // Remove window borders and make the window transparent
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+
         BorderPane borderPane = new BorderPane();
+
+        // Set a background color or image
+        borderPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-image: url('" + getClass().getResource("background.png") + "');" +
+                        "-fx-background-size: cover;" +
+                        "-fx-background-color: #e2d3bc;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-border-radius: 20;" +
+                        "-fx-border-color: lightgray;" +
+                        "-fx-border-width: 2;"
+        );
+
 
         // Custom control buttons
         VBox controlButtons = new VBox(10);
@@ -70,7 +83,7 @@ public class Chat extends Application {
         StackPane chatBox = new StackPane(chatArea);
         chatBox.getStyleClass().add("chat-box");
         chatBox.setPadding(new Insets(10));
-        chatBox.setPrefWidth(600); // 75% of an 800px window width
+        chatBox.setPrefWidth(380);
 
         // Input field and buttons (bottom)
         TextField inputField = new TextField();
@@ -81,6 +94,9 @@ public class Chat extends Application {
         Button sendButton = new Button("发送");
         sendButton.getStyleClass().add("send-button");
         sendButton.setPrefHeight(30); // Match input field height
+
+        // Set input field width to 80% of the window width
+        inputField.prefWidthProperty().bind(borderPane.widthProperty().multiply(0.8));
 
         sendButton.setOnAction(event -> {
             String userInput = inputField.getText();
@@ -102,8 +118,8 @@ public class Chat extends Application {
         borderPane.setLeft(controlButtons); // Control buttons on the left
 
         // Main scene
-        Scene scene = new Scene(borderPane, 800, 600); // Window size: 800x600
-        scene.getStylesheets().add(getClass().getResource("Chat_styles.css").toExternalForm()); // Load external CSS file
+        Scene scene = new Scene(borderPane, 600, 400); // Window size: 800x600
+        scene.setFill(Color.TRANSPARENT); // Set the scene background to transparent
 
         primaryStage.setScene(scene);
         primaryStage.show();

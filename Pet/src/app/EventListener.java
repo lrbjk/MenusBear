@@ -10,7 +10,7 @@ public class EventListener implements EventHandler<MouseEvent>{
     private ImageView imageView;
 	int gifID = 0;//图片编号
 	int petID = 0;//宠物ID
-	double time = 3;//播放动画的时间
+	double time = 1;//播放动画的时间
 	public EventListener(ImageView imgView, int pet) {
 		imageView=imgView;
 		petID = pet;

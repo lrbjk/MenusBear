@@ -60,6 +60,7 @@ public class UI implements Runnable {
 		// 为imageView添加点击事件，点击时切换到“唤醒”状态
 		imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> toggleAwakeState());
         imageView.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> Dragged());
+		imageView.addEventHandler(MouseEvent.MOUSE_RELEASED, event -> handleDragEnd());
 	}
 
 	//切换宠物的状态：点击后由待机到唤醒
@@ -67,6 +68,10 @@ public class UI implements Runnable {
 		if (isAwake.get()) {
 			setPetState("唤醒"); // 切换到唤醒
 		}
+		new Timeline(new KeyFrame(
+			     Duration.seconds(0.5f),
+			     ae ->toIdle()))
+			    .play();
 	}
 	// 自定的状态切换方法:由唤醒到待机
 	public void customToggleAwakeState() {
@@ -77,6 +82,14 @@ public class UI implements Runnable {
     private void Dragged(){
 		setPetState("Dragged");
 	}
+	private void handleDragEnd() {
+		setPetState("MB0"); 
+		
+	}
+	private void toIdle(){
+		setPetState("MB0");
+	}
+
 	public BooleanProperty isAwake() {
 		return isAwake;
 	}
@@ -92,6 +105,8 @@ public class UI implements Runnable {
 			imageFileName = petID == 0 ? "/lxh/WakeUp.gif" : "/biu/WakeUp.gif"; // 根据petID选择对应的唤醒图
 		}else if(state.equals("Dragged")){
 			imageFileName = petID == 0 ? "/lxh/Drag.gif" : "/biu/drag.gif";
+		}else if(state.equals("MB0")){
+			imageFileName = petID == 0 ? "/lxh/MB0.gif" : "/biu/MB0.gif";
 		}
         else{
 			imageFileName = "";
@@ -218,7 +233,7 @@ public class UI implements Runnable {
 		double time;
 		//罗小黑的告别动画1.5秒，比丢的3秒
 		if(petID == 0) time = 1.5;
-		else time = 3;
+		else time = 0.3f;
 		//要用Platform.runLater，不然会报错Not on FX application thread;
 		Platform.runLater(() ->setMsg("再见~"));
 		//动画结束后执行退出

@@ -101,8 +101,10 @@ public class UI implements Runnable {
 		if (state.equals("待机")) {
 			System.out.println("0123"+isAwake.get());
 			imageFileName = petID == 0 ? "/lxh/Sleep.gif" : "/biu/Sleep.gif"; // 根据petID选择对应的待机图
+			isAwake.set(!isAwake().get()); // 切换状态
 		} else if(state.equals("唤醒")){
 			imageFileName = petID == 0 ? "/lxh/WakeUp.gif" : "/biu/WakeUp.gif"; // 根据petID选择对应的唤醒图
+			isAwake.set(!isAwake().get()); // 切换状态
 		}else if(state.equals("Dragged")){
 			imageFileName = petID == 0 ? "/lxh/Drag.gif" : "/biu/drag.gif";
 		}else if(state.equals("MB0")){
@@ -118,7 +120,7 @@ public class UI implements Runnable {
 		imageView.setImage(newImage);
 
 		// 更新状态
-		isAwake.set(!isAwake().get()); // 切换状态
+		
 		System.out.println("0123new"+isAwake.get());
 	}
 

@@ -150,7 +150,7 @@ private static ImageView imageView;
 			 * event.consume()是必需的，这样才能真正阻止Window Close事件的默认处理。
 			 * 如果仅仅使用System.exit(0);则不需要event.consume();
 			*/
-			primaryStage.setOnCloseRequest( event ->{event.consume(); ui.end();});
+			primaryStage.setOnCloseRequest( event ->{event.consume(); ui.end(); pane.getChildren().removeAll(chat, tomato, todo, convert);});
 			primaryStage.show();
 			
 			ui.setTray(primaryStage);//添加系统托盘

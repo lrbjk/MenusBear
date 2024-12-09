@@ -15,7 +15,7 @@ public class OpenSoftwareHandler implements EventHandler<ActionEvent> {
         try {
             if ("todo".equalsIgnoreCase(softwareName)) {
                 // 打开 TodoList 应用
-                app.TodoList todoList = new TodoList();
+                TodoList todoList = new TodoList();
                 Stage stage = new Stage();
                 todoList.start(stage);
             } else if ("chat".equalsIgnoreCase(softwareName)) {

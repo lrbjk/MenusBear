@@ -8,100 +8,176 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 public class TodoList extends Application {
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     private TextArea taskInput;
     private ListView<Task> taskList;
     private ObservableList<Task> tasks;
-    private final String FILE_PATH = "tasks.txt"; // Ê¹ÓÃÎÄ±¾ÎÄ¼ş±£´æÈÎÎñ
+    private final String FILE_PATH = "tasks.txt"; // ä½¿ç”¨æ–‡æœ¬æ–‡ä»¶ä¿å­˜ä»»åŠ¡
     private CheckBox showCompletedCheckBox;
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Todo List");
+        // Remove window borders and make the window transparent
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
-        // ÉèÖÃÄ¬ÈÏ´°¿Ú´óĞ¡
-        primaryStage.setWidth(600); // ÉèÖÃ¿í¶È
-        primaryStage.setHeight(400); // ÉèÖÃ¸ß¶È
+        BorderPane borderPane = new BorderPane();
 
+        // Set a background color or image
+        borderPane.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-background-image: url('" + getClass().getResource("background.png") + "');" +
+                        "-fx-background-size: cover;" +
+                        "-fx-background-color: #e2d3bc;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-border-radius: 20;" +
+                        "-fx-border-color: lightgray;" +
+                        "-fx-border-width: 2;"
+        );
+
+        // Custom control buttons for window actions
+        VBox controlButtons = new VBox(10);
+        controlButtons.setPadding(new Insets(10));
+
+        Button minimizeButton = new Button("-");
+        Button maximizeButton = new Button("[]");
+        Button closeButton = new Button("X");
+
+//        // Create buttons with icons
+//        Button minimizeButton = new Button();
+//        Button maximizeButton = new Button();
+//        Button closeButton = new Button();
+//
+//        // Load icons
+//        minimizeButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("minimize-icon.png"))));
+//        maximizeButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("maximize-icon.png"))));
+//        closeButton.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("close-icon.png"))));
+
+        // Set buttons to be smaller and square-shaped
+        minimizeButton.setPrefSize(20, 20);
+        maximizeButton.setPrefSize(20, 20);
+        closeButton.setPrefSize(20, 20);
+
+        closeButton.setOnAction(event -> primaryStage.close());
+        minimizeButton.setOnAction(event -> primaryStage.setIconified(true));
+        maximizeButton.setOnAction(event -> primaryStage.setMaximized(!primaryStage.isMaximized()));
+
+        controlButtons.getChildren().addAll(closeButton, maximizeButton, minimizeButton);
+
+        // Add drag functionality to the entire borderPane
+        borderPane.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        borderPane.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        // Text area for task input
         taskInput = new TextArea();
-        taskInput.setPromptText("ÊäÈëĞÂµÄÈÎÎñ");
+        taskInput.setPromptText("è¾“å…¥æ–°çš„ä»»åŠ¡");
         taskInput.setWrapText(true);
         taskInput.setMinHeight(60);
 
-        Button addButton = new Button("Ìí¼Ó");
+        Button addButton = new Button("æ·»åŠ ");
         addButton.setOnAction(e -> addTask());
         addButton.setDefaultButton(true);
 
-        Button removeButton = new Button("É¾³ı");
+        Button removeButton = new Button("åˆ é™¤");
         removeButton.setOnAction(e -> removeTask());
 
-        showCompletedCheckBox = new CheckBox("ÏÔÊ¾ÒÑÍê³ÉÈÎÎñ");
+        showCompletedCheckBox = new CheckBox("æ˜¾ç¤ºå·²å®Œæˆä»»åŠ¡");
         showCompletedCheckBox.setSelected(true);
         showCompletedCheckBox.setOnAction(e -> filterTasks());
 
         tasks = FXCollections.observableArrayList();
         taskList = new ListView<>(tasks);
-        taskList.setCellFactory(lv -> new TaskCell()); // ×Ô¶¨Òåµ¥Ôª¸ñÏÔÊ¾
+        taskList.setCellFactory(lv -> new TaskCell()); // Custom cell to display tasks
 
-        // ´¦ÀíÈÎÎñÁĞ±íµÄ¼üÅÌÊÂ¼ş
+        // Handle keyboard events for task list
         taskList.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.DELETE || event.getCode() == KeyCode.BACK_SPACE) {
                 removeTask();
             }
         });
 
-        // ´¦ÀíË«»÷±à¼­ÈÎÎñ
+        // Handle double-click to edit task
         taskList.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 editTask();
             }
         });
+        // Button layout for add, remove and checkbox
+        HBox buttonLayout = new HBox(15, addButton, removeButton, showCompletedCheckBox);
+        buttonLayout.setStyle("-fx-background-color: #f9f9f9; -fx-background-radius: 10;");  // Optional: Style for button layout
 
-        HBox buttonLayout = new HBox(10, addButton, removeButton, showCompletedCheckBox);
-        VBox layout = new VBox(10, taskInput, buttonLayout, taskList);
-        layout.setPadding(new Insets(10));
+        // Layout for task input and buttons
+        VBox inputLayout = new VBox(15, taskInput, buttonLayout);
+        inputLayout.setStyle("-fx-background-color: #f9f9f9; -fx-background-radius: 10;");  // Optional: Style for input layout
+        inputLayout.setPadding(new Insets(10));  // Padding for input layout
 
-        // ¼ÓÔØÈÎÎñ
+        // Layout for task list
+        VBox taskLayout = new VBox(15, taskList);
+        taskLayout.setStyle("-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-radius: 10;"); // Style for task list
+        taskLayout.setPrefHeight(300);  // Limit height of task list
+
+        // Main layout containing input and task list sections
+        VBox layout = new VBox(20, inputLayout, taskLayout);
+        layout.setPadding(new Insets(10, 10, 10, 155));  // Keep original padding (left padding modified)
+
+        // Load tasks from file
         loadTasks();
 
-        Scene scene = new Scene(layout, 400, 300);
-        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("Todo_styles.css")).toExternalForm());
+        // Scene setup
+        Scene scene = new Scene(borderPane, 600, 400);
+        scene.setFill(Color.TRANSPARENT);
+
+        // Set layout into BorderPane's center
+        borderPane.setLeft(controlButtons);
+        borderPane.setCenter(layout);
+
+        // Show scene
         primaryStage.setScene(scene);
+        primaryStage.setUserData(this);
         primaryStage.show();
 
-        // ÔÚ¹Ø±ÕÓ¦ÓÃÊ±±£´æÈÎÎñ
+        // Save tasks when closing the application
         primaryStage.setOnCloseRequest(event -> saveTasks());
     }
 
     private void addTask() {
-        String taskContent = taskInput.getText().trim(); // È¥³ıÇ°ºó¿Õ¸ñ
+        String taskContent = taskInput.getText().trim(); // Remove whitespace
         if (!taskContent.isEmpty()) {
             Optional<Task> existingTask = tasks.stream().filter(task -> task.getContent().equals(taskContent)).findFirst();
             if (existingTask.isPresent()) {
-                showAlert("¸ÃÈÎÎñÒÑ´æÔÚ£¬ÇëÊäÈë²»Í¬µÄÈÎÎñ¡£");
+                showAlert("è¯¥ä»»åŠ¡å·²å­˜åœ¨ï¼Œè¯·è¾“å…¥ä¸åŒçš„ä»»åŠ¡ã€‚");
             } else {
                 Task newTask = new Task(taskContent);
                 tasks.add(newTask);
                 taskInput.clear();
-                showAlert("ÈÎÎñÒÑ³É¹¦Ìí¼Ó£¡");
+                showAlert("ä»»åŠ¡å·²æˆåŠŸæ·»åŠ ï¼");
             }
         }
     }
@@ -109,7 +185,7 @@ public class TodoList extends Application {
     private void removeTask() {
         int selectedIndex = taskList.getSelectionModel().getSelectedIndex();
         if (selectedIndex != -1) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "È·¶¨ÒªÉ¾³ı¸ÃÈÎÎñÂğ£¿");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "ç¡®å®šè¦åˆ é™¤è¯¥ä»»åŠ¡å—ï¼Ÿ");
             alert.setHeaderText(null);
             alert.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
@@ -124,12 +200,12 @@ public class TodoList extends Application {
         if (selectedIndex != -1) {
             Task selectedTask = taskList.getItems().get(selectedIndex);
             taskInput.setText(selectedTask.getContent());
-            taskList.getItems().remove(selectedIndex); // É¾³ıÔ­ÓĞÈÎÎñ
+            taskList.getItems().remove(selectedIndex); // Remove the original task
         }
     }
 
     private void filterTasks() {
-        // ¸ù¾İ¸´Ñ¡¿ò×´Ì¬¹ıÂËÈÎÎñ
+        // Filter tasks based on checkbox status
         if (showCompletedCheckBox.isSelected()) {
             taskList.setItems(tasks);
         } else {
@@ -142,7 +218,7 @@ public class TodoList extends Application {
             if (Files.exists(Paths.get(FILE_PATH))) {
                 List<String> lines = Files.readAllLines(Paths.get(FILE_PATH));
                 for (String line : lines) {
-                    String[] parts = line.split(" \\| "); // ¼ÙÉèÈÎÎñÄÚÈİºÍÊ±¼äÓÃ '|' ·Ö¸ô
+                    String[] parts = line.split(" \\| "); // Assume task content and time are separated by '|'
                     if (parts.length == 3) {
                         Task task = new Task(parts[0], parts[1], Boolean.parseBoolean(parts[2]));
                         tasks.add(task);
@@ -150,7 +226,7 @@ public class TodoList extends Application {
                 }
             }
         } catch (IOException e) {
-            showAlert("¼ÓÔØÈÎÎñÊ§°Ü: " + e.getMessage());
+            showAlert("åŠ è½½ä»»åŠ¡å¤±è´¥: " + e.getMessage());
         }
     }
 
@@ -161,7 +237,7 @@ public class TodoList extends Application {
                 writer.newLine();
             }
         } catch (IOException e) {
-            showAlert("±£´æÈÎÎñÊ§°Ü: " + e.getMessage());
+            showAlert("ä¿å­˜ä»»åŠ¡å¤±è´¥: " + e.getMessage());
         }
     }
 
@@ -171,16 +247,16 @@ public class TodoList extends Application {
         alert.showAndWait();
     }
 
-    // ¶¨ÒåÈÎÎñÀà
+    // Define task class
     public static class Task {
         private String content;
         private String creationTime;
-        private boolean completed; // Ìí¼ÓÍê³É×´Ì¬
+        private boolean completed; // Add completion status
 
         public Task(String content) {
             this.content = content;
             this.creationTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            this.completed = false; // Ä¬ÈÏÎ´Íê³É
+            this.completed = false; // Default to not completed
         }
 
         public Task(String content, String creationTime, boolean completed) {
@@ -202,34 +278,57 @@ public class TodoList extends Application {
         }
 
         public void toggleCompleted() {
-            completed = !completed; // ÇĞ»»Íê³É×´Ì¬
+            completed = !completed; // Toggle completion status
         }
 
         @Override
         public String toString() {
-            return (completed ? "[x] " : "[ ] ") + content + " (´´½¨Ê±¼ä: " + creationTime + ")"; // ÓÃÀ´±íÊ¾Î´Íê³ÉºÍÒÑÍê³ÉµÄÈÎÎñ
+            return (completed ? "[âˆš] " : "[ ] ") + content + " (åˆ›å»ºæ—¶é—´: " + creationTime + ")"; // Display task status and time
         }
     }
 
-    // ×Ô¶¨Òåµ¥Ôª¸ñ
+    // Custom cell
     private static class TaskCell extends ListCell<Task> {
         @Override
         protected void updateItem(Task item, boolean empty) {
             super.updateItem(item, empty);
+
             if (empty || item == null) {
-                setText(null);
                 setGraphic(null);
             } else {
-                setText(item.toString()); // ÏÔÊ¾ÈÎÎñµÄÄÚÈİºÍ´´½¨Ê±¼ä
+                // åˆ›å»ºå¤é€‰æ¡†å’Œæ ‡ç­¾
+                CheckBox completedCheckbox = new CheckBox();
+                completedCheckbox.setSelected(item.isCompleted());
+                completedCheckbox.setOnAction(event -> {
+                    // æ›´æ–°ä»»åŠ¡å®ŒæˆçŠ¶æ€
+                    item.toggleCompleted();
 
-                // ´¦Àíµ¥»÷ÊÂ¼şÒÔÇĞ»»Íê³É×´Ì¬
-                setOnMouseClicked(event -> {
-                    if (event.getButton() == MouseButton.PRIMARY) {
-                        item.toggleCompleted(); // ÇĞ»»Íê³É×´Ì¬
-                        setText(item.toString()); // ¸üĞÂÏÔÊ¾
+                    // è·å–åˆ—è¡¨è§†å›¾ï¼Œåˆ·æ–°æ•°æ®
+                    ListView<Task> listView = getListView();
+                    if (listView != null) {
+                        listView.refresh();
+                    }
+
+                    // è°ƒç”¨è¿‡æ»¤ä»»åŠ¡é€»è¾‘ï¼ˆé¿å…ç›´æ¥ä¾èµ–ä¸»ç±»ï¼‰
+                    TodoList parentApp = (TodoList) getScene().getUserData();
+                    if (parentApp != null) {
+                        parentApp.filterTasks();
                     }
                 });
+
+                // æ˜¾ç¤ºä»»åŠ¡å†…å®¹
+                Label taskLabel = new Label(item.toString());
+
+                // åˆ›å»ºå¸ƒå±€å¹¶è®¾ç½®å›¾å½¢
+                HBox taskBox = new HBox(10, completedCheckbox, taskLabel);
+                setGraphic(taskBox);
             }
         }
+    }
+
+
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

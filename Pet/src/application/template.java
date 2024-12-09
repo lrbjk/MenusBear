@@ -1,21 +1,18 @@
 package application;
 
-import java.awt.Panel;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
@@ -25,12 +22,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -48,12 +44,24 @@ public class template extends Application {
     int minutes;
     int seconds;
     int recMinutes = 25;
+
+    // Media soundEffect = new Media(getClass().getResource("./ksm.mp3").toString());
+    // MediaPlayer soundEffectPlayer = new MediaPlayer(soundEffect);
+
+    URL soundURL = getClass().getResource("ksm.wav");
+    Media sound = new Media(soundURL.toExternalForm());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    
     
 
     @Override
     public void start(Stage primaryStage) {
         // Remove window borders and make the window transparent
         primaryStage.initStyle(StageStyle.TRANSPARENT);
+
+        if(soundURL == null){
+            System.out.println("Empty URL!!!!!");
+        }
 
         BorderPane borderPane = new BorderPane();
 
@@ -68,6 +76,8 @@ public class template extends Application {
                         "-fx-border-color: lightgray;" +
                         "-fx-border-width: 2;"
         );
+
+        
 
 
         // 这个是自定义三个窗口控制 owo
@@ -186,6 +196,7 @@ public class template extends Application {
 
         sendButton.setOnAction(event -> {
             timer.start();
+            // mediaPlayer.play();
         });
 
         pauseButton.setOnAction(event -> {
@@ -243,18 +254,9 @@ public class template extends Application {
         forQuickButton.setSpacing(20);
 
         inputBox.getColumnConstraints().add(emptyColumn);
-        // inputBox.add(sendButton, 1, 2);
-        // inputBox.add(pauseButton, 2, 2);
-        // inputBox.add(resetButton, 3, 2);
-        // inputBox.add(setButton, 4, 2);
+
         inputBox.add(forSetButton, 1, 1);
         inputBox.add(forQuickButton, 1, 0);
-
-        // inputBox.add(timeButtons[0], 1, 1);
-        // inputBox.add(timeButtons[1], 2, 1);
-        // inputBox.add(timeButtons[2],3, 1);
-        // inputBox.add(timeButtons[3], 4, 1);
-        // inputBox.add(timeButtons[4], 5, 1);
 
         inputBox.setPadding(new Insets(10));
 
@@ -289,17 +291,23 @@ public class template extends Application {
         chatArea.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
-    private class TimerListener implements ActionListener { // ???????ActionListener
+    private class TimerListener implements ActionListener {
         @Override
         public void actionPerformed(java.awt.event.ActionEvent e) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                //更新JavaFX的主线程的代码放在此处
-                    if (minutes == 0 && seconds == 0) { // ????????
-                        timer.stop(); // ???????
-                        // JOptionPane.showMessageDialog(window1, str); // ???????????????????????
-                    } else if (seconds == 0) { // ????????0
+                    if (minutes == 0 && seconds == 0) { 
+                        mediaPlayer.play();
+                        timer.stop(); 
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Pomodoro Clock");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Times Up!");
+                        
+                        alert.showAndWait();
+                        
+                    } else if (seconds == 0) {
                         minutes--;
                         seconds = 59; 
                     } else {

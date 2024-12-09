@@ -27,9 +27,9 @@ public class OpenSoftwareHandler implements EventHandler<ActionEvent> {
                 chat.start(stage);
             } else if ("tomato".equalsIgnoreCase(softwareName)) {
                 // 打开 Tomato 应用
-                TomatoTimer tomatoTimer = new TomatoTimer(true, 30);
+                template tomatoTimer = new template();
                 Stage stage = new Stage();
-                tomatoTimer.start();
+                tomatoTimer.start(stage);
             }
             
         } catch (Exception e) {

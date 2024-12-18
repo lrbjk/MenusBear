@@ -95,8 +95,19 @@ public class Chat extends Application {
         sendButton.getStyleClass().add("send-button");
         sendButton.setPrefHeight(30); // Match input field height
 
+        Button helpButton = new Button("帮助");
+        helpButton.getStyleClass().add("input-field");
+        helpButton.setPrefHeight(30);
+
+
+        helpButton.setOnAction(event -> {
+            inputField.setText("帮助");
+            sendButton.fire(); // 模拟发送按钮的点击事件
+        });
+
+
         // Set input field width to 80% of the window width
-        inputField.prefWidthProperty().bind(borderPane.widthProperty().multiply(0.8));
+        inputField.prefWidthProperty().bind(borderPane.widthProperty().multiply(0.75));
 
         sendButton.setOnAction(event -> {
             String userInput = inputField.getText();
@@ -110,7 +121,7 @@ public class Chat extends Application {
             }
         });
 
-        HBox inputBox = new HBox(10, inputField, sendButton);
+        HBox inputBox = new HBox(10, inputField, sendButton, helpButton);
         inputBox.setPadding(new Insets(10));
         inputBox.getStyleClass().add("input-box");
 
